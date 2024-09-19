@@ -1,0 +1,170 @@
+<div class="flex items-center justify-between mb-6">
+    <p class="flex items-center gap-2 text-[16px] md:text-[20px] text-black font-gilmer-medium mb-0">
+        <a routerLink="" class="block md:hidden w-fit" href="#" title="Back">
+            <img src="assets/images/icons/back-arrow.svg" alt="Arrow" width="24" height="24">
+        </a>
+        <span>Apply for Loan</span>
+    </p>
+    <div class="hidden md:block">
+        <a routerLink="/loan-listing" class="button button-sm gap-4 !flex !items-center !justify-start" title="Back">
+            <img src="assets/images/icons/arrow.svg" alt="Arrow" width="20" height="20"><span>Back</span>
+        </a>
+    </div>
+</div>
+<form [formGroup]="applyLoanForm" class="applyLoanForm" autocomplete="off">
+    <div class="bg-secondary-2 border border-secondary-3 p-4 md:p-6 rounded-xl mb-4 md:mb-6 relative">
+        <div class="row">
+            <div class="col-md-6 col-lg-4">
+                <div class="form-group focused">
+                    <label for="Name">Name<sup>*</sup></label>
+                    <input type="text" data-type="input" class="form-control" name="Name" id="Name" autocomplete="off"
+                        formControlName="fullName" [(ngModel)]="fullName">
+                    @if(applyLoanForm.controls['fullName'].invalid &&
+                    (applyLoanForm.controls['fullName'].dirty ||
+                    applyLoanForm.controls['fullName'].touched)){
+                    <div class="errMsg">
+                        @if(applyLoanForm.controls['fullName'].errors?.['required']){ Name
+                        is required }
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="form-group focused">
+                    <label for="Mobile Number">Mobile Number<sup>*</sup></label>
+                    <input type="text" data-type="input" class="form-control" name="Mobile Number" id="Mobile Number"
+                        autocomplete="off" formControlName="mobileNumber" [(ngModel)]="mobileNumber">
+                    @if(applyLoanForm.controls['mobileNumber'].invalid &&
+                    (applyLoanForm.controls['mobileNumber'].dirty ||
+                    applyLoanForm.controls['mobileNumber'].touched)){
+                    <div class="errMsg">
+                        @if(applyLoanForm.controls['mobileNumber'].errors?.['required']){ Mobile Number is required }
+                        @if(applyLoanForm.controls['mobileNumber'].errors?.['pattern']){ Please
+                        enter a valid mobile number }
+                        @if((applyLoanForm.controls['mobileNumber'].errors?.['minlength'] ||
+                        applyLoanForm.controls['mobileNumber'].errors?.['maxlength'])
+                        && !applyLoanForm.controls['mobileNumber'].errors?.['pattern']){ Phone
+                        number should not less than 10 characters }
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="form-group">
+                    <label for="Email ID">Email ID<sup>*</sup></label>
+                    <input type="text" data-type="input" class="form-control" name="Email ID" id="Email ID"
+                        autocomplete="off" formControlName="emailid" [(ngModel)]="emailid">
+                    @if(applyLoanForm.controls['emailid'].invalid &&
+                    (applyLoanForm.controls['emailid'].dirty ||
+                    applyLoanForm.controls['emailid'].touched)){
+                    <div class="errMsg">
+                        @if(applyLoanForm.controls['emailid'].errors?.['required']){ Email
+                        is required }
+                        @if(this.applyLoanForm.controls['emailid'].errors?.['pattern']){
+                        <div>
+                            Invalid Email Pattern.
+                        </div>
+                        }
+                        @if(this.applyLoanForm.controls['emailid'].errors?.['maxlength']){
+                        <div>
+                            Maximum 50 Characters Allowed
+                        </div>
+                        }
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="form-group">
+                    <label for="Pincode">Pincode*</label>
+                    <input type="text" data-type="input" class="form-control" name="Pincode" id="Pincode"
+                        autocomplete="off" formControlName="pincode" [(ngModel)]="pincode" minlength="6" maxlength="6">
+                    @if(applyLoanForm.controls['pincode'].invalid &&
+                    (applyLoanForm.controls['pincode'].dirty ||
+                    applyLoanForm.controls['pincode'].touched)){
+                    <div class="errMsg">
+                        @if(applyLoanForm.controls['pincode'].errors?.['required']){ Pincode
+                        is required }
+                        @if(applyLoanForm.controls['pincode'].errors?.['maxlength']){ Maximum 6 Digits Allowed }
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="form-group type-select">
+                    <label for="Select Product">Select Product<sup>*</sup> </label>
+                    <input type="text" class="form-control" id="Select Product" formControlName="product"
+                        (click)="handler__selectInput($event)" readonly autocomplete="off">
+                    <div class="select-box" (click)="handler__selectBox($event)">
+                        <ng-scrollbar thumbClass="custom-scrollbars">
+                            <ul>
+                                <li *ngFor="let product of productList"
+                                    (click)="handler__selectOption($event,product.Category)">
+                                    {{product.Category}}</li>
+                            </ul>
+                        </ng-scrollbar>
+                    </div>
+                    @if(applyLoanForm.controls['product'].invalid &&
+                    (applyLoanForm.controls['product'].dirty ||
+                    applyLoanForm.controls['product'].touched)){
+                    <div class="errMsg">
+                        @if(applyLoanForm.controls['product'].errors?.['required']){ Product
+                        is required }
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="form-group">
+                    <label for="Enter Loan Amount">Enter Loan Amount<sup>*</sup></label>
+                    <input type="text" data-type="input" class="form-control" name="Enter Loan Amount"
+                        id="Enter Loan Amount" autocomplete="off" formControlName="loanAmount" [(ngModel)]="loanAmount">
+                    <div class="flex justify-between mt-1">
+                        <span class="text-12 text-secondary-4 font-gilmer-regular">min ₹&nbsp;50000</span>
+                        <span class="text-12 text-secondary-4  font-gilmer-regular">max ₹&nbsp;5000000</span>
+                    </div>
+                    @if(applyLoanForm.controls['loanAmount'].invalid &&
+                    (applyLoanForm.controls['loanAmount'].dirty ||
+                    applyLoanForm.controls['loanAmount'].touched)){
+                    <div class="errMsg">
+                        @if(applyLoanForm.controls['loanAmount'].errors?.['required']){ Loan Amount
+                        is required }
+                        @if(applyLoanForm.controls['loanAmount'].errors?.['min']){Minimum Amount should be ₹&nbsp;50,000
+                        }
+                        @if(applyLoanForm.controls['loanAmount'].errors?.['max']){ Maximum Amount should be
+                        ₹&nbsp;50,00,000 }
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group type-checkbox md:mb-10">
+                    <input class="checkbox" type="checkbox" id="termsandconditions" formControlName="checkbox">
+                    <label for="termsandconditions">I agree to the Terms &
+                        Conditions and I authorize
+                        Shriram Housing
+                        Finance Limited (SHFL) & its representatives to call or SMS/Whatsapp me with
+                        reference to my loan applications and also to make any enquiries regarding my
+                        credit
+                        history with them.</label>
+                    @if(applyLoanForm.controls['checkbox'].invalid &&
+                    (applyLoanForm.controls['checkbox'].dirty ||
+                    applyLoanForm.controls['checkbox'].touched)){
+                    <div class="errMsg">
+                        @if(applyLoanForm.controls['checkbox'].errors?.['required']){ Please agree to the terms &
+                        conditions }
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <button title="Submit" class="button button--large button--large button-default"
+                    (click)="applyLoanSubmit()"><span>Submit</span></button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- Success Modal -->
+<app-success-modal></app-success-modal>
+<app-component-loader></app-component-loader>

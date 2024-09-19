@@ -1,0 +1,48 @@
+/* ========= Tailwind CSS ========== */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========= Add your plugin CSS ========== */
+
+// Import Global Variables
+// $asset_cdn_base_path: "";
+@import "./variables/global-variable";
+@import "./../../node_modules/swiper/swiper";
+@import "./../../node_modules/swiper/modules/navigation";
+@import "./../../node_modules/swiper/modules/pagination";
+@import "./../../node_modules/swiper/modules/effect-fade";
+// @import "./../../node_modules/swiper/modules/grid";
+
+/* ========= Add your custom CSS ========== */
+
+@import "./../assets/scss/style";
+
+/* ========= CSS variables =========*/
+
+:root {
+    // Font
+    --font-light: #{$font-light};
+    --font-regular: #{$font-regular};
+    --font-medium: #{$font-medium};
+    --font-bold: #{$font-bold};
+    --font-heavy: #{$font-heavy};
+    --font-outline: #{$font-outline};
+    // Base Color
+    --white: #{$white};
+    --black: #{$black};
+    --red: #{$red};
+    --orange: #{$orange};
+    --green: #{$green};
+    // Theme Color - Primary
+    --primary-1: #{$primary-1};
+    --primary-2: #{$primary-2};
+    // Theme Color - Secondary
+    --secondary-1: #{$secondary-1};
+    --secondary-2: #{$secondary-2};
+    --secondary-3: #{$secondary-3};
+    --secondary-4: #{$secondary-4};
+    --secondary-5: #{$secondary-5};
+    --secondary-6: #{$secondary-6};
+}

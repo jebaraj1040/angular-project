@@ -1,0 +1,207 @@
+// disable IOS Zooming
+@supports (-webkit-touch-callout: none) {
+    @media (-webkit-min-device-pixel-ratio: 0) and (max-width: 1024px) {
+        select,
+        textarea,
+        input {
+            &:focus {
+                font-size: 16px;
+            }
+        }
+    }
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input[type="password"] {
+    -webkit-text-security: square;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: none;
+    width: 40px;
+    height: 20px;
+    background-position: calc(100% - 15px) center;
+}
+
+input[type="date"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    // background: url("#{$asset_cdn_base_path}/assets/images/icons/datepicker.svg") no-repeat;
+    // background-position: calc(100% - 15px) center;
+}
+
+input[type="file"] {
+    background: transparent;
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+}
+
+select {
+    text-indent: 1px;
+    // background: url("#{$asset_cdn_base_path}/assets/images/icons/arrow-down-grey.svg") no-repeat;
+    // background-position: calc(100% - 15px) center;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    &::-ms-expand {
+        display: none;
+    }
+}
+
+textarea {
+    resize: none;
+    height: 90px;
+}
+
+label {
+    display: inline-block;
+}
+
+input,
+textarea {
+    &:focus {
+        border-color: $primary-1;
+    }
+    &:active,
+    &:focus {
+        outline: 0;
+    }
+}
+
+input {
+    &[disabled],
+    &:disabled {
+        color: #6b7e81 !important;
+        background-color: #e7ebeb !important;
+        border-color: #ccd4d4 !important;
+        pointer-events: none !important;
+        -webkit-text-fill-color: #6b7e81;
+        opacity: 1;
+        /* required on iOS */
+    }
+}
+
+button {
+    &[disabled],
+    &:disabled {
+        color: #6b7e81 !important;
+        border: 1px solid #ccd4d4 !important;
+        background: #e7ebeb !important;
+        box-shadow: none !important;
+        pointer-events: none !important;
+        -webkit-text-fill-color: #6b7e81;
+        opacity: 1;
+    }
+}
+
+.form {
+    &-group {
+        max-width: 100%;
+        margin-bottom: 24px;
+        position: relative;
+        @media (min-width: 768px) {
+            margin-bottom: 32px;
+        }
+        &:not(.type-checkbox, .type-radio) label {
+            font-size: 14px;
+            font-family: $font-regular;
+            line-height: 1;
+            color: $input-label-color;
+            margin: 0;
+            position: absolute;
+            top: 26px;
+            left: 15px;
+            right: 30px;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            sup {
+                color: $input-text-color;
+            }
+        }
+        &.focused label {
+            font-size: 10px;
+            top: 15px;
+        }
+    }
+    &-control {
+        width: 100%;
+        height: 52px;
+        font-size: 16px;
+        font-family: $font-medium;
+        color: $input-text-color;
+        line-height: 22px;
+        padding: 15px 15px 0;
+        background-color: $white !important;
+        border: 1px solid $input-border-color;
+        border-radius: $input-border-radius;
+        text-overflow: ellipsis;
+    }
+}
+
+// Textarea
+.type-textarea {
+    &.focused label {
+        top: 18px;
+    }
+    label {
+        padding: 10px 15px !important;
+        left: 2px !important;
+        background: $white;
+    }
+    textarea.form-control {
+        height: 184px;
+        padding-top: 30px;
+        background: $white;
+    }
+}
+
+.type-date {
+    .form-control {
+        // background: url("#{$asset_cdn_base_path}/assets/images/icons/date.svg") no-repeat;
+        // background-position: calc(100% - 15px) center;
+        // cursor: pointer;
+    }
+}
+
+.icon-date {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background: url("#{$asset_cdn_base_path}/assets/images/icons/date.svg")
+        no-repeat;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 1;
+}
+
+.errMsg {
+    width: 100%;
+    display: block;
+    font-size: 12px;
+    font-family: $font-medium;
+    line-height: 20px;
+    color: #ee5959;
+    &--success {
+        color: $green;
+    }
+}

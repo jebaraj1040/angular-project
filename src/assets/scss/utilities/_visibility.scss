@@ -1,0 +1,38 @@
+// Display property
+.d-none {
+    display: none !important;
+}
+
+.d-inline {
+    display: inline !important;
+}
+
+.d-inline-block {
+    display: inline-block !important;
+}
+
+.d-block {
+    display: block !important;
+}
+
+@each $point in map-keys($grid-breakpoints) {
+    $min: map-get($grid-breakpoints, $point);
+    $media: 'screen';
+    @if ($min !=0) {
+        $media: '(min-width:' + $min + ')';
+    }
+    @media #{$media} {
+        .d-#{$point}-none {
+            display: none !important;
+        }
+        .d-#{$point}-inline {
+            display: inline !important;
+        }
+        .d-#{$point}-inline-block {
+            display: inline-block !important;
+        }
+        .d-#{$point}-block {
+            display: block !important;
+        }
+    }
+}

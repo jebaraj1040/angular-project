@@ -1,0 +1,38 @@
+@import "../../../../src/assets/scss/variables/variables";
+.toast {
+    width: 100%;
+    max-width: 300px;
+    background: $primary-1;
+    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.1);
+    transform: translate(-50%, -60px);
+    visibility: hidden;
+    position: fixed;
+    top: -100%;
+    left: 50%;
+    z-index: 99999;
+    &.show {
+        top: 60px;
+        visibility: visible;
+        animation: fadein 1s ease-in-out;
+    }
+}
+
+@keyframes fadein {
+    from {
+        top: -100%;
+        opacity: 0;
+    }
+    to {
+        top: 60px;
+        opacity: 1;
+    }
+}
+
+:host ::ng-deep {
+    .editor-content * {
+        color: $white;
+    }
+}

@@ -1,0 +1,211 @@
+<div class="flex items-center justify-between mb-6">
+    <p class="flex items-center gap-2 text-[16px] md:text-[20px] text-black font-gilmer-medium mb-0">
+        <a class="block md:hidden w-fit" href="#" title="Back">
+            <img src="assets/images/icons/back-arrow.svg" alt="Arrow" width="24" height="24">
+        </a>
+        <span>Enach Form</span>
+    </p>
+    <div class="hidden md:block">
+        <a class="button button-sm gap-4 !flex !items-center !justify-start" title="Back">
+            <img src="assets/images/icons/arrow.svg" alt="Arrow" width="20" height="20"><span>Back</span>
+        </a>
+    </div>
+</div>
+
+<div class="bg-secondary-2 border border-[#E7EBEB] px-4 py-4 md:px-6 md:py-8 rounded-xl">
+    <p class="text-[14px] md:text-[18px] text-black font-gilmer-regular mb-4 md:mb-6"> CustomerInformation</p>
+    <div class="row">
+        <div class="col-md-6 col-lg-4">
+            <div class="form-group type-select">
+                <label for="Selectbox">Loan Number <sup>*</sup> </label>
+                <input type="text" class="form-control" id="Selectbox" (click)="handler__selectInput($event)" readonly
+                    autocomplete="off">
+                <div class="select-box" (click)="handler__selectBox($event)">
+                    <ng-scrollbar thumbClass="custom-scrollbars">
+                        <ul>
+                            <li (click)="handler__selectOption($event)">Loan Number</li>
+                            <li (click)="handler__selectOption($event)">Loan Number</li>
+                            <li (click)="handler__selectOption($event)">Loan Number</li>
+                        </ul>
+                    </ng-scrollbar>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="form-group">
+                <label for="loanAmount">Loan Amount<sup>*</sup></label>
+                <input type="text" data-type="input" class="form-control" name="LoanAmount" id="loanAmount"
+                    autocomplete="off">
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="form-group">
+                <label for="Full Name">Full Name<sup>*</sup></label>
+                <input type="text" data-type="input" class="form-control" name="Full Name" id="Full Name"
+                    autocomplete="off">
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="form-group">
+                <label for="Mobile Number">Mobile Number<sup>*</sup></label>
+                <input type="text" data-type="input" class="form-control" name="Mobile Number" id="Mobile Number"
+                    autocomplete="off">
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="form-group">
+                <label for="Email ID">Email ID<sup>*</sup></label>
+                <input type="text" data-type="input" class="form-control" name="Email ID" id="Email ID"
+                    autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <hr class="mb-6 md:mb-8 text-secondary-3">
+    <p class="text-[14px] md:text-[18px] text-black font-gilmer-regular  mb-4 md:mb-6">Debit Account Details</p>
+    <div class="row">
+        <div class="col-md-6 col-lg-4">
+            <div class="form-group type-select">
+                <label for="Create Mandate with">Create Mandate with <sup>*</sup> </label>
+                <input type="text" class="form-control" id="Create Mandate with" (click)="handler__selectInput($event)"
+                    readonly autocomplete="off">
+                <div class="select-box" (click)="handler__selectBox($event)">
+                    <ng-scrollbar thumbClass="custom-scrollbars">
+                        <ul>
+                            <li (click)="handler__selectOption($event)">Create Mandate with</li>
+                            <li (click)="handler__selectOption($event)">Create Mandate with</li>
+                            <li (click)="handler__selectOption($event)">Create Mandate with</li>
+                        </ul>
+                    </ng-scrollbar>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="form-group type-select">
+                <label for="Select Bank">Select Bank <sup>*</sup> </label>
+                <input type="text" class="form-control" id="Select Bank" (click)="handler__selectInput($event)" readonly
+                    autocomplete="off">
+                <div class="select-box" (click)="handler__selectBox($event)">
+                    <ng-scrollbar thumbClass="custom-scrollbars">
+                        <ul>
+                            <li (click)="handler__selectOption($event)">Select Bank</li>
+                            <li (click)="handler__selectOption($event)">Select Bank</li>
+                            <li (click)="handler__selectOption($event)">Select Bank</li>
+                        </ul>
+                    </ng-scrollbar>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="form-group">
+                <label for="Debit Account Number">Debit Account Number<sup>*</sup></label>
+                <input type="text" data-type="input" class="form-control" name="Debit Account Number"
+                    id="Debit Account Number" autocomplete="off">
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="form-group">
+                <label for="Full Name">Confirm Account Number<sup>*</sup></label>
+                <input type="text" data-type="input" class="form-control" name="Confirm Account Number"
+                    id="Confirm Account Number" autocomplete="off">
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="form-group type-select">
+                <label for="Select Account Type">Select Account Type <sup>*</sup> </label>
+                <input type="text" class="form-control" id="Select Account Type" (click)="handler__selectInput($event)"
+                    readonly autocomplete="off">
+                <div class="select-box" (click)="handler__selectBox($event)">
+                    <ng-scrollbar thumbClass="custom-scrollbars">
+                        <ul>
+                            <li (click)="handler__selectOption($event)">Account Type</li>
+                            <li (click)="handler__selectOption($event)">Account Type</li>
+                            <li (click)="handler__selectOption($event)">Account Type</li>
+                        </ul>
+                    </ng-scrollbar>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="form-group">
+                <label for="IFSC Code">IFSC Code<sup>*</sup></label>
+                <input type="text" data-type="input" class="form-control" name="IFSC Code" id="IFSC Code"
+                    autocomplete="off">
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="form-group">
+                <label for="Email ID">Email ID<sup>*</sup></label>
+                <input type="text" data-type="input" class="form-control" name="Email ID" id="Email ID"
+                    autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <hr class="mb-6 md:mb-8 text-secondary-3">
+    <p class="text-[14px] md:text-[18px] text-black font-gilmer-regular  mb-4 md:mb-6">Mandate Information</p>
+    <div class="row">
+        <div class="col-md-6 col-lg-4">
+            <div class="form-group">
+                <label for="Collection Amount">Collection Amount<sup>*</sup></label>
+                <input type="text" data-type="input" class="form-control" name="Collection Amount"
+                    id="Collection Amount" autocomplete="off">
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="form-group">
+                <label for="Maximum Collection Amount">Maximum Collection Amount<sup>*</sup></label>
+                <input type="text" data-type="input" class="form-control" name="Maximum Collection Amount"
+                    id="Maximum Collection Amount" autocomplete="off">
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="form-group">
+                <label for="Collection Type">Collection Type<sup>*</sup></label>
+                <input type="text" data-type="input" class="form-control" name="Collection Type" id="Collection Type"
+                    autocomplete="off">
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="form-group type-select">
+                <label for="Collection Frequency">Collection Frequency<sup>*</sup> </label>
+                <input type="text" class="form-control" id="Collection Frequency" (click)="handler__selectInput($event)"
+                    readonly autocomplete="off">
+                <div class="select-box" (click)="handler__selectBox($event)">
+                    <ng-scrollbar thumbClass="custom-scrollbars">
+                        <ul>
+                            <li (click)="handler__selectOption($event)">Collection Frequency</li>
+                            <li (click)="handler__selectOption($event)">Collection Frequency</li>
+                            <li (click)="handler__selectOption($event)">Collection Frequency</li>
+                        </ul>
+                    </ng-scrollbar>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="form-group">
+                <label for="Collection First Date">Collection First Date<sup>*</sup></label>
+                <input type="text" data-type="input" class="form-control" name="Collection First Date"
+                    id="Collection First Date" autocomplete="off">
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="form-group">
+                <label for="Collection Last Date">Collection Last Date<sup>*</sup></label>
+                <input type="text" data-type="input" class="form-control" name="Collection Last Date"
+                    id="Collection Last Date" autocomplete="off">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group type-checkbox">
+                <input class="checkbox" type="checkbox" id="terms">
+                <label for="terms">I agree to the Terms & Conditions.</label>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <button title="Authorize Mandate" class="button button--large button--large button-default"
+                data-modal-target="#successModalPopup"><span>Authorize
+                    Mandate</span></button>
+        </div>
+    </div>
+</div>
+
+<app-success-modal></app-success-modal>

@@ -1,0 +1,87 @@
+<div class="relative">
+    <div class="flex items-center justify-between mb-6">
+        <p class="grid mb-0">
+            <span class="flex gap-2 items-center">
+                <a routerLink="/loan-listing" class="block md:hidden w-fit" href="#" title="Back">
+                    <img src="assets/images/icons/back-arrow.svg" alt="Arrow" width="24" height="24">
+                </a>
+                <span class="text-[16px] md:text-[20px] text-black font-gilmer-medium">Write to Us</span>
+            </span>
+            <label class="text-12 text-secondary-4">We would love to hear your thoughts, suggestions, concerns, to
+                improve our services</label>
+        </p>
+        <div class="hidden md:block">
+            <a routerLink="/loan-listing" class="button button-sm gap-4 !flex !items-center !justify-start"
+                title="Back">
+                <img src="assets/images/icons/arrow.svg" alt="Arrow" width="20" height="20"><span>Back</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="bg-secondary-2 border border-secondary-3 p-4 md:p-6 rounded-xl mb-4 md:mb-6 relative">
+        <div class="flex gap-3 md:gap-4 overflow-auto mb-6">
+            <button
+                class="bg-white border border-[#D5DCDC] text-14 font-gilmer-medium text-secondary-6 text-center py-2 px-4 rounded-3xl [&.active]:bg-primary-1 [&.active]:border-primary-1 [&.active]:text-white whitespace-nowrap"
+                title="Comment" [class.active]="selectedTab == 1" (click)="selectTab(1)">Comment</button>
+            <button
+                class="bg-white border border-[#D5DCDC] text-14 font-gilmer-medium text-secondary-6 text-center py-2 px-4 rounded-3xl [&.active]:bg-primary-1 [&.active]:border-primary-1 [&.active]:text-white whitespace-nowrap"
+                title="Suggestion" [class.active]="selectedTab == 2" (click)="selectTab(2)">Suggestion</button>
+            <button
+                class="bg-white border border-[#D5DCDC] text-14 font-gilmer-medium text-secondary-6 text-center py-2 px-4 rounded-3xl [&.active]:bg-primary-1 [&.active]:border-primary-1 [&.active]:text-white whitespace-nowrap"
+                (click)="selectTab(3)" [class.active]="selectedTab == 3">
+                Query</button>
+        </div>
+        @if(selectedTab){
+        <form [formGroup]="writeToUsForm" class="writeToUsForm" autocomplete="off">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="Subject">Subject*</label>
+                        <input type="text" data-type="input" class="form-control" name="Subject" id="Subject"
+                            formControlName="subject" [(ngModel)]="subject" autocomplete="off">
+                        @if(writeToUsForm.controls['subject'].invalid &&
+                        (writeToUsForm.controls['subject'].dirty ||
+                        writeToUsForm.controls['subject'].touched)){
+                        <div class="errMsg">
+                            @if(writeToUsForm.controls['subject'].errors?.['required']){ Subject is required }
+
+                            @if(writeToUsForm.controls['subject'].errors?.['maxlength']){Maximum 250 characters allowed}
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group type-textarea">
+                        <label for="feedback">Describe your {{currentLabels?.feedback}}*</label>
+                        <textarea class="form-control" id="feedback" formControlName="feedback" [(ngModel)]="feedback"
+                            data-type="input" minlength="3"></textarea>
+                        @if(writeToUsForm.controls['feedback'].invalid &&
+                        (writeToUsForm.controls['feedback'].dirty ||
+                        writeToUsForm.controls['feedback'].touched)){
+                        <div class="errMsg">
+                            @if(writeToUsForm.controls['feedback'].errors?.['required']){
+                            {{capitalizeFirstLetter(currentLabels?.feedback)}}
+                            is required }
+                            @if(writeToUsForm.controls['feedback'].errors?.['minlength']){ Minimum 3 characters required
+                            }
+                            @if(writeToUsForm.controls['feedback'].errors?.['maxlength']){Maximum 250 Characters Allowed
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <button title="Submit" title="Submit" (click)="handler__successMessage()"
+                        class=" button button-default !min-w-[100%] !min-h-[52px]">
+                        <span>Submit</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+        }
+    </div>
+
+    <!-- Success Modal  -->
+    <app-success-modal [labels]="currentLabels"></app-success-modal>
+    <app-component-loader></app-component-loader>
+</div>

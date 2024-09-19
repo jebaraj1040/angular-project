@@ -1,0 +1,44 @@
+%container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: calc($grid-gutter-width / 2);
+    padding-right: calc($grid-gutter-width / 2);
+}
+
+@each $point in map-keys($grid-breakpoints) {
+    $container-size: map-get($container-width, $point);
+    $screen-size: map-get($grid-breakpoints, $point);
+    $media: screen;
+    @for $i from 1 through $grid-columns {
+        .container {
+            @extend %container;
+        }
+        .container-#{$point} {
+            @extend %container;
+        }
+    }
+    @if ($screen-size !=0) {
+        $media: "(min-width:"+($screen-size)+")";
+    }
+    @media #{$media} {
+        .container {
+            max-width: $container-size;
+        }
+        .container-#{$point} {
+            max-width: $container-size;
+        }
+    }
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: - calc($grid-gutter-width / 2);
+    margin-right: - calc($grid-gutter-width / 2);
+    &>* {
+        flex-shrink: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+}

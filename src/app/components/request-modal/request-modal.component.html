@@ -1,0 +1,42 @@
+<div class="modal modal-align-mobile-bottom fade" id="requestModalPopup" tabindex="-1" aria-expanded="false"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-sm modal-dialog-center">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" type="button" title="Close" aria-label="Close" data-modal-dismiss="Close"
+                    (click)="back()"><span class=" sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-18 md:text-24 text-center text-secondary-6 font-gilmer-regular mb-8 md:mb-6">
+                    Dispatched
+                    Address</p>
+                <div
+                    class="max-w-[340px] mx-auto flex gap-3 bg-secondary-2 border border-[#D5DCDC] rounded-lg p-4 mb-8">
+                    <div
+                        class="min-w-10 max-w-10 min-h-10 max-h-10 flex items-center justify-center bg-white rounded-full">
+                        <img src="/assets/images/icons/location.svg" alt="Location" width="32" height="32" />
+                    </div>
+                    @if(addressData ){
+                    @if(addressData?.ErrorMessage == "No Details Found"){
+                    <p class="text-14 text-secondary-6 mb-0 font-gilmer-regular">No Address Found
+                    </p>
+                    }
+                    @if(addressData?.ErrorMessage != "No Details Found"){
+                    <p class="text-14 text-secondary-6 mb-0 font-gilmer-regular"> {{addressData?.Address1}},
+                        {{addressData?.Address2}}, {{addressData?.Area}},
+                        {{addressData?.City}} -
+                        {{addressData?.Pincode}}
+                    </p>
+                    }
+                    }
+                </div>
+                <div class="text-center">
+                    <button class="button button-default" title="View And Download" (click)="welcomeLetterClick()">
+                        <span>View And Download</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-component-loader></app-component-loader>
+</div>

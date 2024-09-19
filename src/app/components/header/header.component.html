@@ -1,0 +1,45 @@
+<header class="header bg-white py-4">
+    <div class="container">
+        <ul class="flex items-center justify-between">
+            <li>
+                <button (click)="home()" type="button"><img src="assets/images/shfl-logo.svg" alt="SHFL Customer Portal"
+                        width="123px" height="31px"></button>
+            </li>
+            <li>
+                @if(logoutButton() === true){
+                <button type="button" class="button button-sm gap-4 !border-0 md:!border-2" title="Log Out"
+                    data-modal-target="#logoutModalPopup"><img src="assets/images/icons/logout.svg" alt=""><span>Log
+                        Out</span></button>
+                }
+            </li>
+        </ul>
+    </div>
+</header>
+
+
+<!-- Logout Popup Modal -->
+<div class="modal modal-align-mobile-bottom fade" id="logoutModalPopup" tabindex="-1" aria-expanded="false"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-sm modal-dialog-center">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" type="button" title="Close" aria-label="Close"
+                    data-modal-dismiss="Close"><span class=" sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-18 md:text-24 text-center text-secondary-6 mb-8 md:mb-16">Logging Out</p>
+                <p
+                    class="text-16 md:text-18 font-gilmer-medium lg:font-gilmer-regular text-center  mb-5 md:mb-10 text-secondary-6">
+                    Are you sure that Do you want <br />to log out?</p>
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <button type="button" class="button button-sm !min-w-full md:!min-w-[48%] w-full md:w-[48%]"
+                        title="Yes, Log Out" (click)="logout()" data-modal-dismiss="Close"><span>Yes, Log
+                            Out</span></button>
+                    <button class="button button-default !min-w-full md:!min-w-[48%] w-full md:w-[48%]" title="No"
+                        data-modal-dismiss="Close"><span>No</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Request Modal -->

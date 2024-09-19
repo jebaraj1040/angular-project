@@ -1,0 +1,32 @@
+.text {
+    &-left {
+        text-align: left !important;
+    }
+    &-right {
+        text-align: right !important;
+    }
+    &-center {
+        text-align: center !important;
+    }
+}
+
+@each $point in map-keys($grid-breakpoints) {
+    $min: map-get($grid-breakpoints, $point);
+    $media: "screen";
+    @if ($min !=0) {
+        $media: "(min-width:" + $min + ")";
+    }
+    @media #{$media} {
+        .text-#{$point} {
+            &-left {
+                text-align: left !important;
+            }
+            &-right {
+                text-align: right !important;
+            }
+            &-center {
+                text-align: center !important;
+            }
+        }
+    }
+}

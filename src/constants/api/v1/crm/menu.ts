@@ -1,0 +1,15 @@
+export const menuConstants = {
+    menuList: "api/v1/crm/menu/list",
+    menuAdd: "api/v1/crm/menu/save",
+    menuEdit: "api/v1/crm/menu/edit",
+    menuDelete: "api/v1/crm/menu/delete",
+    limit: 10,
+    checkAccess: "api/v1/crm/menu/check-access",
+    export: "api/v1/crm/menu/export",
+    parentList: "api/v1/crm/menu/parent-list",
+    dbQuery: "api/v1/crm/db/query",
+    dbMongoQuery: "api/v1/crm/db/querymongo",
+    querycommand: "api/v1/crm/db/querycommand",
+    menuOrder: "api/v1/crm/menu/orderstatus",
+    menuSaveOrder: "api/v1/crm/menu/orderupdate",
+};

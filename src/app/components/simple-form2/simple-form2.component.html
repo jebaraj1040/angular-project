@@ -1,0 +1,156 @@
+<div class="relative">
+    <!-- Register -->
+    @if(registerStep1){
+    <form [formGroup]="registerForm" class="registerForm" autocomplete="off">
+        <h2
+            class="text-18 lg:text-[24px] leading-[24px] lg:leading-[40px] font-gilmer-medium mb-1 text-center text-black">
+            Hello
+            there!
+        </h2>
+        <p class="text-center text-secondary-4 text-14 lg:text-16 mb-4 lg:mb-8">Create your account with registered
+            <br />mobile
+            number
+        </p>
+        <div class="form-group" [ngClass]="mobileNumber ? 'focused' : ''">
+            <label for="mobileNumber">Mobile Number*</label>
+            <input input type="text" data-type="input" class="form-control" name="mobile-number" id="mobile"
+                formControlName="mobileNumber" [(ngModel)]="mobileNumber" minlength="10" maxlength="10"
+                autocomplete="off">
+            @if(registerForm.controls['mobileNumber'].invalid &&
+            (registerForm.controls['mobileNumber'].dirty ||
+            registerForm.controls['mobileNumber'].touched)){
+            <div class="errMsg">
+                @if(registerForm.controls['mobileNumber'].errors?.['required']){ Mobile
+                number is required }
+                @if(registerForm.controls['mobileNumber'].errors?.['pattern']){ Please
+                enter a valid mobile number }
+                @if((registerForm.controls['mobileNumber'].errors?.['minlength'] ||
+                registerForm.controls['mobileNumber'].errors?.['minlength'])
+                && !registerForm.controls['mobileNumber'].errors?.['pattern']){ Phone
+                number should not less than 10 characters }
+            </div>
+            }
+            <div class="errMsg">
+                {{ mobileNumberErrMsg }}
+            </div>
+        </div>
+        <div class="form-group" [ngClass]="userName ? 'focused' : ''">
+            <label for="customerName">Name*</label>
+            <input type="text" data-type="input" class="form-control" name="customer-name" id="customerName"
+                formControlName="user_name" [(ngModel)]="userName" autocomplete="off">
+            @if(registerForm.controls['user_name'].invalid &&
+            (registerForm.controls['user_name'].dirty ||
+            registerForm.controls['user_name'].touched)){
+            <div class="errMsg">
+                @if(registerForm.controls['user_name'].errors?.['required']){
+                User name is required }
+                @if(registerForm.controls['user_name'].errors?.['maxlength']){
+                Maximum 50 Characters Allowed }
+                @if(registerForm.controls['user_name'].errors?.['pattern']){
+                Only Characters Allowed}
+            </div>
+            }
+        </div>
+        <div class="mb-4 lg:mb-6 text-center">
+            <button class="button button-default" title="Get OTP" (click)="verifyUser()"><span>Get OTP</span></button>
+        </div>
+        @if(errorMessage){
+        <div class="mt-2 text-center errMsg">
+            <p [innerHTML]="errorMessage"></p>
+        </div>
+        }
+        <p class="text-12 text-secondary-6 text-center mb-0">Do you already have an account? <a href="#"
+                class="text-12 font-gilmer-medium no-underline" title="Log In">Log In</a></p>
+    </form>
+    }
+
+    <!-- OTP Modal  -->
+    @if(registerStep2){
+    <app-otp-modal [mobileNumber]="mobileNumber" [otpType]="otpType" (otpEntered)="handleOtpEntered($event)"
+        (editNumber)="editMobileNumber($event)"></app-otp-modal>
+    @if(errorMessage){
+    <div class="mt-2 text-center errMsg">
+        <p [innerHTML]="errorMessage"></p>
+    </div>
+    }
+    }
+
+    <!-- Password and Confirm PAssword  -->
+    @if(registerStep3){
+    <form [formGroup]="passwordForm" class="registerForm" autocomplete="off">
+        <h2
+            class="text-18 lg:text-[24px] leading-[24px] lg:leading-[40px] font-gilmer-medium mb-1 text-center text-black">
+            Authentication
+            Required</h2>
+        <p class="text-center text-secondary-4 text-14 lg:text-16 mb-4 lg:mb-8">Password should be Minimum eight
+            characters with minimum one special character, one numeric, one lower case and one upper case alphabet.
+        </p>
+        <div class="form-group relative">
+            <label for="enterPassword">Enter Password*</label>
+            <input type="{{ showEnterPassword ? 'text' : 'password' }}" data-type="input" class="form-control"
+                name="enter-password" id="enterPassword" formControlName="enter_password" [(ngModel)]="enter_password"
+                autocomplete="off">
+            @if(passwordForm.controls['enter_password'].invalid &&
+            (passwordForm.controls['enter_password'].dirty ||
+            passwordForm.controls['enter_password'].touched)){
+            <div class="errMsg">
+                @if(passwordForm.controls['enter_password'].errors?.['required']){
+                Password is required }
+                @if(passwordForm.controls['enter_password'].errors?.['maxlength']){
+                Maximum 30 Characters Allowed }
+                @if(passwordForm.controls['enter_password'].errors?.['pattern']){
+                Please enter valid Password }
+
+            </div>
+            }
+            <button type="button" class="absolute w-6 h-6 right-3 top-[14px]" (click)="toggleEnterPasswordVisibility()">
+                <img *ngIf="!showEnterPassword" src="/assets/images/icons/visibility_off.svg" class="m-auto" width="21"
+                    height="22" alt="Hide Password">
+                <img *ngIf="showEnterPassword" src="/assets/images/icons/visibility.svg" class="m-auto" width="22"
+                    height="15" alt="Show Password">
+            </button>
+        </div>
+
+        <div class="form-group relative">
+            <label for="reEnterPassword">Re-Enter Password*</label>
+            <input type="{{ showReEnterPassword ? 'text' : 'password' }}" data-type="input" class="form-control"
+                name="re-enter-password" id="reEnterPassword" formControlName="confirm_password"
+                [(ngModel)]="confirm_password" autocomplete="off">
+            @if(passwordForm.controls['confirm_password'].invalid &&
+            (passwordForm.controls['confirm_password'].dirty ||
+            passwordForm.controls['confirm_password'].touched)){
+            <div class="errMsg">
+                @if(passwordForm.controls['confirm_password'].errors?.['required']){
+                Confirm password is required }
+                @if(passwordForm.controls['confirm_password'].errors?.['confirmedValidator']){
+                Passwords did not match }
+            </div>
+            }
+            <button type="button" class="absolute w-6 h-6 right-3 top-[14px]"
+                (click)="toggleReEnterPasswordVisibility()">
+                <img *ngIf="!showReEnterPassword" src="/assets/images/icons/visibility_off.svg" class="m-auto"
+                    width="21" height="22" alt="Hide Password">
+                <img *ngIf="showReEnterPassword" src="/assets/images/icons/visibility.svg" class="m-auto" width="22"
+                    height="15" alt="Show Password">
+            </button>
+        </div>
+        <div class="mb-4 lg:mb-6 text-center">
+            <button class="button button-default" title="Register" [disabled]="submittedBtnDisabled"
+                (click)="regiterData()"><span>Register</span></button>
+        </div>
+
+        @if(errorMessage){
+        <div class="mt-2 text-center errMsg">
+            <p [innerHTML]="errorMessage"></p>
+        </div>
+        }
+
+    </form>
+    }
+
+    <!-- Success Card -->
+    @if(registerStep4){
+    <app-success-card [message]="message"></app-success-card>
+    }
+    <app-component-loader></app-component-loader>
+</div>

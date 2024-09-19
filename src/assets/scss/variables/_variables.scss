@@ -1,0 +1,69 @@
+@import "./../../../styles/variables/global-variable";
+// Grid break points
+$grid-breakpoints: (
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1680px,
+) !default;
+// Container break points
+$container-width: (
+    md: 720px,
+    lg: 960px,
+    xl: 1200px,
+    xxl: 1300px,
+) !default;
+// Spacing break points
+$spacing-breakpoints: (
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1680px,
+) !default;
+// Spacing upto 40px
+$spacing-count: 4 !default;
+// Grid setting
+$grid-columns: 12 !default;
+// Gutter width
+$grid-gutter-width: 24px !default;
+$grid-breakpoints-keys: map-keys($grid-breakpoints);
+$grid_clear: true;
+// Base Path
+// $asset_cdn_base_path: '';
+// Font File Name
+$font-path-light: "GilmerLight"; // 300
+$font-path-regular: "GilmerRegular"; // 400
+$font-path-medium: "GilmerMedium"; // 600
+$font-path-bold: "GilmerBold"; // 700
+$font-path-heavy: "GilmerHeavy"; // 800
+$font-path-outline: "GilmerOutline"; // 800
+// Font Family
+$font-light: "GilmerLight", sans-serif; // 300
+$font-regular: "GilmerRegular", sans-serif; // 400
+$font-medium: "GilmerMedium", sans-serif; // 600
+$font-bold: "GilmerBold", sans-serif; // 700
+$font-heavy: "GilmerHeavy", sans-serif; // 800
+$font-outline: "GilmerOutline", sans-serif; // 500
+// Base Color
+$white: #fff;
+$black: #000;
+$red: #ff0000;
+$orange: #ffa500;
+$green: #008000;
+// Theme Color - Primary
+$primary-1: #009cb5;
+$primary-2: #71c6ac;
+// Theme Color - Secondary
+$secondary-1: #e9fcff;
+$secondary-2: #f9fafa;
+$secondary-3: #e7ebeb;
+$secondary-4: #6b7e81;
+$secondary-5: #4b585a;
+$secondary-6: #2b3233;
+// Input Property
+$input-label-color: #8c9f9f;
+$input-text-color: #2b3233;
+$checkbox-label-color: #4b585a;
+$checkbox-active-state: #4b585a;
+$input-border-color: #ccd4d4;
+$input-border-radius: 0;

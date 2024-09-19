@@ -1,0 +1,71 @@
+@import "../../../assets/scss/variables/variables";
+
+.box {
+    &-shadow {
+        box-shadow: 0px 0px 20px 2px #009cb540 inset;
+    }
+}
+
+::ng-deep {
+    // Swiper Slider Dots
+    .swiper-pagination {
+        position: relative;
+        right: 0;
+        bottom: -12px !important;
+        justify-content: center;
+        .swiper-pagination-bullet {
+            background: transparent !important;
+            border: 1px solid $primary-1;
+            margin: 0 8px !important;
+            &:last-child {
+                width: 8px !important;
+                height: 8px !important;
+                margin-right: 0 !important;
+            }
+            &:nth-last-child(2) {
+                width: 8px !important;
+                height: 8px !important;
+            }
+
+            &.swiper-pagination-bullet-active {
+                background: $primary-1 !important;
+            }
+        }
+        @media (min-width: 768px) {
+            bottom: -20px !important;
+        }
+    }
+
+    // Swiper Slider Arrow's
+    .swiper-button-prev,
+    .swiper-button-next {
+        width: 24px;
+        height: 24px;
+        bottom: -31px;
+        top: unset;
+        position: relative;
+        left: 0;
+        display: none;
+        &::after {
+            font-size: 0;
+            background-image: url("#{$asset_cdn_base_path}/assets/images/icons/arrow-right.svg");
+            width: 24px;
+            height: 24px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        @media (min-width: 768px) {
+            display: flex;
+        }
+    }
+    .swiper-button-prev {
+        margin-right: 16px;
+        &::after {
+            transform: rotate(180deg);
+        }
+    }
+    .swiper-button-next {
+        margin-left: 16px;
+    }
+}

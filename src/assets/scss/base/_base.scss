@@ -1,0 +1,44 @@
+*,
+:after,
+:before {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -ms-overflow-style: scrollbar;
+    -webkit-tap-highlight-color: transparent;
+    line-height: 1.15;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+}
+
+picture {
+    display: block;
+}
+
+img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+}
+
+input:active,
+input:focus {
+    outline: 0;
+}
+
+select::-ms-expand {
+    display: none !important;
+}
+
+input::-ms-clear,
+input::-ms-reveal {
+    display: none !important;
+    height: 0;
+    width: 0;
+}

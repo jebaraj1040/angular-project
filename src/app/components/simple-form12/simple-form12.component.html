@@ -1,0 +1,60 @@
+<div class="relative">
+
+    <div class="flex items-center justify-between mb-6">
+
+        <p class="flex items-center gap-2 text-[16px] md:text-[20px] text-black font-gilmer-medium mb-0">
+            <a routerLink="/loan-listing" class="block md:hidden w-fit" href="#" title="Back">
+                <img src="assets/images/icons/back-arrow.svg" alt="Arrow" width="24" height="24">
+            </a>
+            <span>Auto Debit Settings</span>
+        </p>
+        <app-toast [showToastMsg]="autoDebitError"></app-toast>
+        <div class="hidden md:block">
+            <a routerLink="/loan-listing" class="button button-sm gap-4 !flex !items-center !justify-start"
+                title="Back">
+                <img src="assets/images/icons/arrow.svg" alt="Arrow" width="20" height="20"><span>Back</span>
+            </a>
+        </div>
+
+    </div>
+
+    @if(autoDebitAvailability == 1) {
+    @for(autoDebit of autoDebitData; track $index){
+    <div class="bg-secondary-2 border border-secondary-3 p-4 md:p-6 rounded-xl mb-4 md:mb-6 relative">
+        <ul class="grid grid-cols-1 md:grid-cols-4 gap-4 xl:gap-6 xxl:gap-10 last:pb-0 last:border-b-0">
+            <li>
+                <p class="text-12 text-secondary-4 mb-0">Loan Type</p>
+                <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">{{autoDebit.LoanName}}
+                </p>
+            </li>
+            <li>
+                <p class="text-12 text-secondary-4 mb-0">Loan Number</p>
+                <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">{{autoDebit.LoanNumber}}
+                </p>
+            </li>
+            <li>
+                <p class="text-12 text-secondary-4 mb-0">Auto Debit Amount</p>
+                <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">₹&nbsp;{{autoDebit.EMIAmount}}
+                </p>
+            </li>
+            <li>
+                <button title="Cancel Auto Debit"
+                    class="button button--large button-default md:!min-w-[160px] !min-h-[40px]"
+                    (click)="cancelAutoDebit(autoDebit.LoanNumber)">
+                    <span class="text-14">Cancel Auto Debit</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+    }
+    }
+
+    @if(autoDebitAvailability == 0 || autoDebitAvailability == 2) {
+    <div class="flex items-center justify-center h-[inherit]">
+        <app-simple-card5></app-simple-card5>
+    </div>
+    }
+    <app-component-loader></app-component-loader>
+</div>
+
+<app-toast [showToastMsg]="autoDebitError"></app-toast>

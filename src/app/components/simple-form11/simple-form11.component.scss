@@ -1,0 +1,8 @@
+.type-textarea {
+    textarea.form-control {
+        height: 120px;
+        @media (min-width: 768px) {
+            height: 72px;
+        }
+    }
+}

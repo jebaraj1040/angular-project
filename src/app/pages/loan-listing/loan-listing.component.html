@@ -1,0 +1,17 @@
+<section class="layout">
+    <div class="container">
+        @if(userName) {
+        <h2 class="text-[16px] md:text-[20px] text-black font-gilmer-medium mb-4 md:mb-6">Hello {{userName}}</h2>
+        }
+        <div class="row gap-y-6">
+            <div class="col-xl-8">
+                <div class="w-full h-full mx-auto bg-white rounded-xl p-4 md:p-6 border border-[#E7EBEB]">
+                    <app-simple-card class="block h-[inherit]"></app-simple-card>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <!-- <app-side-bar></app-side-bar> -->
+            </div>
+        </div>
+    </div>
+</section>

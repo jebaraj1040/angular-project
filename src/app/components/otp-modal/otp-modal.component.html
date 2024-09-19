@@ -1,0 +1,71 @@
+<form [formGroup]="verifyOtpForm" class="verifyOtpForm" autocomplete="off">
+    <div class="otp">
+        <p
+            class="text-18 lg:text-[24px] leading-[24px] lg:leading-[40px] font-gilmer-medium mb-1 text-center text-black">
+            OTP
+            Verification
+        </p>
+
+        <p class="text-center text-secondary-4 text-14 lg:text-16 mb-4 lg:mb-8">Please enter the OTP sent to your mobile
+            number +91 {{formatMobileNumber(mobileNumber)}}
+            <button type="button" class="inline-block ml-1" title="Edit number" (click)="editMobileNumber()">
+                <img src="/assets/images/icons/pencil.svg" width="16" height="16" alt="Edit number" />
+            </button>
+        </p>
+        <div class="otp-wrapper">
+            <div class="otp-input-group">
+                <label for="otpCode" class="sr-only">OTP Label</label>
+                <input class="otp-input otp-single-field" type="text" id="otpCode" minlength="6" maxlength="6"
+                    formControlName="otpCode" [(ngModel)]="otpCode" autocomplete="off" />
+            </div>
+            @if(verifyOtpForm.get('otpCode').invalid &&
+            (verifyOtpForm.get('otpCode').dirty ||
+            verifyOtpForm.get('otpCode').touched)){
+            <div class="errMsg -mt-6 mb-6 ml-8 ">
+                @if(verifyOtpForm.get('otpCode').errors.required){
+                <ng-container>
+                    Please Enter OTP
+                </ng-container>
+                }
+                @if(verifyOtpForm.get('otpCode').errors.minlength){
+                <ng-container>
+                    Please Enter 6 Digit Otp
+                </ng-container>
+                }
+                @if(verifyOtpForm.get('otpCode').errors.maxlength){
+                <ng-container>
+                    Please Enter 6 Digit Otp
+                </ng-container>
+                }
+            </div>
+            }
+            <div class="errMsg -mt-6 mb-6 ml-8 ">
+                {{ mobileNumberErrMsg || forgetOtpError }}
+            </div>
+
+            <div class="mb-6 lg:mb-8 -mt-4 text-center md:w-[80%] md:mx-auto">
+                @if(resend){
+                <p class="text-12 font-gilmer-medium mb-6 flex justify-between">Request New OTP in
+                    <span>00:{{timeLeft}} sec </span>
+                </p>
+                } @if(!resend){
+                <button type="button" class="text-12 font-gilmer-medium text-primary-1 no-underline" title="Resend OTP"
+                    (click)="handler__resendOtp()">Resend
+                    OTP</button>
+                }
+            </div>
+
+            <div class="mb-4 lg:mb-6 text-center">
+                <button class="button button-default" title="Verify OTP" (click)="verifyOtp()"><span>Verify
+                        OTP</span></button>
+            </div>
+
+            @if(forgetOtpVerifyErrMsg){
+            <div class="errMsg -mt-6 mb-6 ml-8 ">
+                {{ forgetOtpVerifyErrMsg }}
+            </div>
+            }
+
+        </div>
+    </div>
+</form>

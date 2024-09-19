@@ -1,0 +1,29 @@
+@import "../../../assets/scss/variables/variables";
+.patternTypeOne {
+    overflow: hidden;
+    &::before {
+        content: "";
+        background-image: url("#{$asset_cdn_base_path}/assets/images/icons/pattern-one.svg");
+        background-repeat: no-repeat;
+        background-position: left top;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background-size: cover;
+    }
+}
+.patternTypeTwo {
+    overflow: hidden;
+    &::before {
+        content: "";
+        background-image: url("#{$asset_cdn_base_path}/assets/images/icons/pattern-two.svg");
+        background-repeat: no-repeat;
+        background-position: right top;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0.2;
+        background-size: cover;
+    }
+}

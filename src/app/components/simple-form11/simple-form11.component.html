@@ -1,0 +1,146 @@
+<div class="flex items-center justify-between mb-6">
+    <p class="flex items-center gap-2 text-[16px] md:text-[20px] text-black font-gilmer-medium mb-0">
+        <a routerLink="/loan-listing" class="block md:hidden w-fit" href="#" title="Back">
+            <img src="assets/images/icons/back-arrow.svg" alt="Arrow" width="24" height="24">
+        </a>
+        <span>Refer a Friend</span>
+    </p>
+    <div class="hidden md:block">
+        <a routerLink="/loan-listing" class="button button-sm gap-4 !flex !items-center !justify-start" title="Back">
+            <img src="assets/images/icons/arrow.svg" alt="Arrow" width="20" height="20"><span>Back</span>
+        </a>
+    </div>
+</div>
+
+<form [formGroup]="productForm" class="productForm" autocomplete="off">
+    <div class="bg-secondary-2 border border-secondary-3 p-4 md:p-6 rounded-xl mb-4 md:mb-6 relative">
+        <div class="row">
+            <div class="col-md-6 col-lg-4">
+                <div class="form-group">
+                    <label for="personName">Person name</label>
+                    <input type="text" data-type="input" class="form-control" name="personName" id="personName"
+                        formControlName="personName" autocomplete="off">
+                    @if(productForm.controls['personName'].invalid &&
+                    (productForm.controls['personName'].dirty ||
+                    productForm.controls['personName'].touched)){
+                    <div class="errMsg">
+                        @if(productForm.controls['personName'].errors?.['required']){ Person name
+                        is required }
+                        @if(productForm.controls['personName'].errors?.['maxlength']){ Maximum 250 Characters Allowed}
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="form-group type-textarea">
+            <label for="howDoYouKnowPers">How do you know the person?</label>
+            <textarea class="form-control" name="howDoYouKnowPers" id="howDoYouKnowPers" data-type="input"
+                formControlName="howDoYouKnowPers"></textarea>
+            @if(productForm.controls['howDoYouKnowPers'].invalid &&
+            (productForm.controls['howDoYouKnowPers'].dirty ||
+            productForm.controls['howDoYouKnowPers'].touched)){
+            <div class="errMsg">
+                @if(productForm.controls['howDoYouKnowPers'].errors?.['maxlength']){ Maximum 250 Characters Allowed}
+            </div>
+            }
+        </div>
+        <div class="form-group type-textarea">
+            <label for="durationKnown">How long have you know this person?</label>
+            <textarea class="form-control" name="durationKnown" id="durationKnown" data-type="input"
+                formControlName="durationKnown"></textarea>
+            @if(productForm.controls['durationKnown'].invalid &&
+            (productForm.controls['durationKnown'].dirty ||
+            productForm.controls['durationKnown'].touched)){
+            <div class="errMsg">
+                @if(productForm.controls['durationKnown'].errors?.['maxlength']){ Maximum 250 Characters Allowed}
+            </div>
+            }
+        </div>
+        <div class="form-group type-textarea">
+            <label for="suggestionRmrk">Is there anything else we should know about this
+                person?</label>
+            <textarea class="form-control typeOne" name="suggestionRmrk" id="suggestionRmrk" data-type="input"
+                formControlName="suggestionRmrk"></textarea>
+            @if(productForm.controls['suggestionRmrk'].invalid &&
+            (productForm.controls['suggestionRmrk'].dirty ||
+            productForm.controls['suggestionRmrk'].touched)){
+            <div class="errMsg">
+                @if(productForm.controls['suggestionRmrk'].errors?.['maxlength']){ Maximum 250 Characters Allowed}
+            </div>
+            }
+        </div>
+        <p class="text-14 text-[#2D3636] mb-4">With their permission please give us</p>
+        <div class="row">
+            <div class="col-md-6 col-lg-4">
+                <div class="form-group">
+                    <label for="personMobileNumber">Their Mobile Number</label>
+                    <input type="text" data-type="input" class="form-control" name="personMobileNumber"
+                        formControlName="personMobileNumber" id="personMobileNumber" minlength="10" maxlength="10"
+                        autocomplete="off">
+                    @if(productForm.controls['personMobileNumber'].invalid &&
+                    (productForm.controls['personMobileNumber'].dirty ||
+                    productForm.controls['personMobileNumber'].touched)){
+                    <div class="errMsg">
+                        @if(productForm.controls['personMobileNumber'].errors?.['required']){ Their Mobile Number
+                        is required }
+                        @if(productForm.controls['personMobileNumber'].errors?.['pattern']){ Please
+                        enter a valid mobile number }
+                        @if(productForm.controls['personMobileNumber'].errors?.['minlength']
+                        && !productForm.controls['personMobileNumber'].errors?.['pattern']){ Phone
+                        number should not less than 10 characters }
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="form-group">
+                    <label for="personEmail">Their Email</label>
+                    <input type="text" data-type="input" class="form-control" name="personEmail" id="personEmail"
+                        formControlName="personEmail" autocomplete="off">
+                    @if(productForm.controls['personEmail'].invalid &&
+                    (productForm.controls['personEmail'].dirty ||
+                    productForm.controls['personEmail'].touched)){
+                    <div class="errMsg">
+                        @if(productForm.controls['personEmail'].errors?.['required']){ Their Email
+                        is required }
+                        @if(productForm.controls['personEmail'].errors?.['pattern']){
+                        Invalid Email Pattern.
+                        }
+                        @if(productForm.controls['personEmail'].errors?.['maxlength']){ Maximum 250 Characters Allowed}
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="form-group type-select">
+                    <label for="product">Product Looking for</label>
+                    <input type="text" class="form-control" id="product" formControlName="product" name="product"
+                        (click)="handler__selectInput($event)" readonly [(ngModel)]="productForm.value.product"
+                        autocomplete="off">
+                    <div class="select-box" (click)="handler__selectBox($event)">
+                        <ng-scrollbar thumbClass="custom-scrollbars">
+                            <ul>
+                                @for(product of productData; track $index){
+                                <li (click)="handler__selectOption($event, product?.Category)">{{product?.Category}}
+                                </li>
+                                }
+                            </ul>
+                        </ng-scrollbar>
+                    </div>
+                    @if(productForm.controls['product'].invalid &&
+                    (productForm.controls['product'].dirty ||
+                    productForm.controls['product'].touched)){
+                    <div class="errMsg">
+                        @if(productForm.controls['product'].errors?.['required']){ Please select the loan type }
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <button title="Submit" class="button button-default !min-w-[100%] !min-h-[52px]"
+                    (click)="refereSubmit()"><span>Submit</span></button>
+            </div>
+        </div>
+    </div>
+</form>
+<app-success-modal [popupMessage]="popupMessage"></app-success-modal>

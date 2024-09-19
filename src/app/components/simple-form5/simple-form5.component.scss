@@ -1,0 +1,110 @@
+@import "../../../assets/scss/variables/variables";
+.file-type {
+    display: block;
+    font-size: 10px;
+    line-height: 14px;
+    margin: 5px 0 0;
+    color: #666666;
+}
+
+.fileUpload {
+    width: 100%;
+    // max-width: 320px;
+    height: 52px;
+    padding: 15px;
+    background: #f0f5f5;
+    border: 1px dashed #b0bebe;
+    border-radius: 4px;
+    position: relative;
+    &__label {
+        font-size: 12px;
+        font-family: $font-medium;
+        color: #12100a;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        &::before {
+            content: "";
+            width: 27px;
+            height: 17px;
+            background: url("/assets/images/icons/download.svg") no-repeat;
+            position: absolute;
+            top: 50%;
+            left: -20px;
+            transform: translateY(-50%);
+        }
+    }
+}
+
+// Ripple Circle
+.ripple {
+    margin: auto;
+    position: relative;
+    &__circle,
+    &__wave {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: #5bc686;
+        transform: scale(0);
+        animation: ripple-circle 2s forwards 0.5s;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        z-index: 99;
+    }
+    &__tick {
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        z-index: 100;
+        &--path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: -100;
+            animation: dash-check 2s forwards 3s infinite;
+        }
+    }
+    &__wave {
+        width: 124px;
+        height: 124px;
+        animation: ripple-wave 2s forwards 3s infinite;
+    }
+}
+
+@keyframes ripple-circle {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes ripple-wave {
+    0% {
+        opacity: 1;
+        transform: scale(0);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+
+@keyframes dash-check {
+    0% {
+        stroke-dashoffset: -100;
+    }
+    100% {
+        stroke-dashoffset: 900;
+    }
+}

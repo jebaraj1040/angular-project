@@ -1,0 +1,156 @@
+<div class="flex items-center justify-between mb-6">
+    <p class="flex items-center gap-2 text-[16px] md:text-[20px] text-black font-gilmer-medium mb-0">
+        <a class="block md:hidden w-fit" [attr.href]="'/loan-details?loanId=' + LoanNumber" href="#" title="Back">
+            <img src="assets/images/icons/back-arrow.svg" alt="Arrow" width="24" height="24">
+        </a>
+        <span>Track My Request</span>
+    </p>
+    <div class="hidden md:block">
+        <a [attr.href]="'/loan-details?loanId=' + LoanNumber"
+            class="button button-sm gap-4 !flex !items-center !justify-start" title="Back">
+            <img src="assets/images/icons/arrow.svg" alt="Arrow" width="20" height="20"><span>Back</span>
+        </a>
+    </div>
+</div>
+
+<div class="bg-secondary-2 border border-secondary-3 p-4 md:p-6 rounded-xl mb-4 md:mb-6 relative">
+    <div class="flex flex-wrap items-center w-full justify-between mb-6">
+        <div class="flex items-center xl:w-[48%] gap-3 rounded-lg">
+            <div
+                class="min-w-12 md:min-w-14 max-w-12 md:max-w-14 min-h-12 md:min-h-14 max-h-12 md:max-h-14 flex items-center justify-center border border-solid border-secondary-3 bg-white rounded-full">
+                <img src=" /assets/images/icons/home-loan.svg" alt="Home Loan" width="28" height="28">
+            </div>
+            <div class="block">
+                <p class="text-14 md:text-18 font-gilmer-medium text-secondary-6 mb-0">Home
+                    Loan
+                </p>
+                <p class="text-14 text-secondary-4 mb-0">SBTHJIPR0000345</p>
+            </div>
+        </div>
+    </div>
+    <!-- Tabs  -->
+    <div class="flex gap-3 md:gap-4 overflow-auto mb-6">
+        <button
+            class="bg-white border border-[#D5DCDC] text-14 font-gilmer-medium text-secondary-6 text-center py-2 px-4 rounded-3xl [&.active]:bg-primary-1 [&.active]:border-primary-1 [&.active]:text-white whitespace-nowrap"
+            [class.active]="selectedTab == 1" title="Summary" (click)="selectTab(1)">Summary</button>
+        <button
+            class="bg-white border border-[#D5DCDC] text-14 font-gilmer-medium text-secondary-6 text-center py-2 px-4 rounded-3xl [&.active]:bg-primary-1 [&.active]:border-primary-1 [&.active]:text-white whitespace-nowrap"
+            [class.active]="selectedTab == 2" title="Transaction" (click)="selectTab(2)">Transaction</button>
+        <button
+            class="bg-white border border-[#D5DCDC] text-14 font-gilmer-medium text-secondary-6 text-center py-2 px-4 rounded-3xl [&.active]:bg-primary-1 [&.active]:border-primary-1 [&.active]:text-white whitespace-nowrap"
+            [class.active]="selectedTab == 3" title="Service Request" (click)="selectTab(3)">Service
+            Request</button>
+    </div>
+    <div class="tab-content">
+        <div class="flex flex-col gap-4">
+            <div class="-mx-4 md:mx-0 p-4 md:p-6 md:rounded-[12px] bg-white">
+                <ul
+                    class="grid grid-cols-2 md:grid-cols-4 gap-4 pb-4 mb-4 border-b border-b-secondary-3 last:pb-0 last:mb-0 last:border-b-0">
+                    <li>
+                        <p class="text-12 text-secondary-4 mb-0">Disbursed Amount</p>
+                        <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                            ₹&nbsp;1,340,579.00</p>
+                    </li>
+                    <li>
+                        <p class="text-12 text-secondary-4 mb-0">Tenure</p>
+                        <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                            268
+                            Months</p>
+                    </li>
+                    <li>
+                        <p class="text-12 text-secondary-4 mb-0">Balance Tenure</p>
+                        <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                            199
+                            Months</p>
+                    </li>
+                    <li>
+                        <p class="text-12 text-secondary-4 mb-0">EMI for Last Month</p>
+                        <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                            ₹&nbsp;12,740.00</p>
+                    </li>
+                </ul>
+                <ul class="gap-4 py-3 px-2 bg-[] rounded-lg border border-[#A6F2DB] bg-[#E9FCF6]">
+                    <li>
+                        <p class="text-12 mb-0 text-[#307661]">Closure Feedback:</p>
+                        <p class="text-12 md:text-14 font-gilmer-medium text-secondary-6 mb-0">Customer address has been
+                            updated
+                            in the website.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="-mx-4 md:mx-0 p-4 md:p-6 md:rounded-[12px] bg-white">
+                <ul
+                    class="grid grid-cols-2 md:grid-cols-4 gap-4 pb-4 mb-4 border-b border-b-secondary-3 last:pb-0 last:mb-0 last:border-b-0">
+                    <li>
+                        <p class="text-12 text-secondary-4 mb-0">Disbursed Amount</p>
+                        <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                            ₹&nbsp;1,340,579.00</p>
+                    </li>
+                    <li>
+                        <p class="text-12 text-secondary-4 mb-0">Tenure</p>
+                        <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                            268
+                            Months</p>
+                    </li>
+                    <li>
+                        <p class="text-12 text-secondary-4 mb-0">Balance Tenure</p>
+                        <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                            199
+                            Months</p>
+                    </li>
+                    <li>
+                        <p class="text-12 text-secondary-4 mb-0">EMI for Last Month</p>
+                        <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                            ₹&nbsp;12,740.00</p>
+                    </li>
+                </ul>
+                <ul class="gap-4 py-3 px-2 bg-[] rounded-lg border border-[#A6F2DB] bg-[#E9FCF6]">
+                    <li>
+                        <p class="text-12 mb-0 text-[#307661]">Closure Feedback:</p>
+                        <p class="text-12 md:text-14 font-gilmer-medium text-secondary-6 mb-0">Customer address has been
+                            updated
+                            in the website.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="-mx-4 md:mx-0 p-4 md:p-6 md:rounded-[12px] bg-white">
+                <ul
+                    class="grid grid-cols-2 md:grid-cols-4 gap-4 pb-4 mb-4 border-b border-b-secondary-3 last:pb-0 last:mb-0 last:border-b-0">
+                    <li>
+                        <p class="text-12 text-secondary-4 mb-0">Disbursed Amount</p>
+                        <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                            ₹&nbsp;1,340,579.00</p>
+                    </li>
+                    <li>
+                        <p class="text-12 text-secondary-4 mb-0">Tenure</p>
+                        <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                            268
+                            Months</p>
+                    </li>
+                    <li>
+                        <p class="text-12 text-secondary-4 mb-0">Balance Tenure</p>
+                        <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                            199
+                            Months</p>
+                    </li>
+                    <li>
+                        <p class="text-12 text-secondary-4 mb-0">EMI for Last Month</p>
+                        <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                            ₹&nbsp;12,740.00</p>
+                    </li>
+                </ul>
+                <ul class="gap-4 py-3 px-2 bg-[] rounded-lg border border-[#A6F2DB] bg-[#E9FCF6]">
+                    <li>
+                        <p class="text-12 mb-0 text-[#307661]">Closure Feedback:</p>
+                        <p class="text-12 md:text-14 font-gilmer-medium text-secondary-6 mb-0">Customer address has been
+                            updated
+                            in the website.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

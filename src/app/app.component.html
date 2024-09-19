@@ -1,0 +1,10 @@
+<!-- Header Section -->
+<app-header></app-header>
+
+<!-- Main Section -->
+<main class="main py-6" style="min-height: calc(100vh - 126px);" [ngClass]="removeHeight ? 'height-auto' : '' ">
+    <router-outlet></router-outlet>
+</main>
+
+<!-- Footer Section -->
+<app-footer></app-footer>

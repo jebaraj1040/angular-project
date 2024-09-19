@@ -1,0 +1,99 @@
+<form [formGroup]="loginForm" class="loginForm relative" autocomplete="off">
+    <h2 class="text-18 lg:text-[24px] font-gilmer-medium leading-[24px] lg:leading-[40px] mb-1 text-center text-black">
+        Welcome Back!
+    </h2>
+    <p class="text-14 lg:text-16 text-center text-secondary-4 mb-4 lg:mb-8">Please login to your account</p>
+    @if(errorType == 'Invalid Credentials'){
+    <span class="errMsg mb-4">
+        Invalid Credentials. Please try again.
+    </span>
+    }
+    <div class="form-group">
+        <label for="mobileNumber">Mobile Number*</label>
+        <input type="text" data-type="input" class="form-control" name="mobile-number" id="mobile"
+            formControlName="mobile_number" minlength="10" maxlength="10" autocomplete="off" [(ngModel)]="mobileNumber">
+        @if(loginForm.controls['mobile_number'].invalid &&
+        (loginForm.controls['mobile_number'].dirty ||
+        loginForm.controls['mobile_number'].touched)){
+        <div class="errMsg">
+            @if(loginForm.controls['mobile_number'].errors?.['required']){ Mobile
+            number is required }
+            @if(loginForm.controls['mobile_number'].errors?.['pattern']){ Please
+            enter a valid mobile number }
+            @if(loginForm.controls['mobile_number'].errors?.['minlength']
+            && !loginForm.controls['mobile_number'].errors?.['pattern']){ Phone
+            number should not less than 10 characters }
+        </div>
+        }
+    </div>
+    <div class="form-group relative">
+        <label for="password">Password*</label>
+        <input type="{{ showPassword ? 'text' : 'password' }}" data-type="input" class="form-control" name="password"
+            id="password" formControlName="password" autocomplete="off" [(ngModel)]="password">
+        <button type="button" class="absolute w-6 h-6 right-3 top-[14px]" (click)="togglePasswordVisibility()">
+            <img *ngIf="!showPassword" src="/assets/images/icons/visibility_off.svg" class="m-auto" width="21"
+                height="22" alt="Hide Password">
+            <img *ngIf="showPassword" src="/assets/images/icons/visibility.svg" class="m-auto" width="22" height="15"
+                alt="Show Password">
+        </button>
+        @if(loginForm.controls['password'].invalid &&
+        (loginForm.controls['password'].dirty ||
+        loginForm.controls['password'].touched)){
+        <div class="errMsg">
+            @if(loginForm.controls['password'].errors?.['required']){
+            Password is required }
+            @if(loginForm.controls['password'].errors?.['maxlength']){
+            Maximum 40 Characters Allowed }
+        </div>
+        }
+    </div>
+    <div class="mb-6 lg:mb-8 -mt-4">
+        <a routerLink="/forget" class="text-12 font-gilmer-medium no-underline text-primary-1"
+            title="Forgot password?">Forgot
+            password?</a>
+    </div>
+    <div class="flex gap-4">
+        <div class="w-[50%] md:w-[55%] form-group">
+            <label for="captcha">Captcha*</label>
+            <input type="text" data-type="input" class="form-control" name="captcha" id="captcha" [(ngModel)]="captcha"
+                formControlName="captcha" autocomplete="off">
+            @if((errorType != 'captcha_expired' && errorType != 'captcha_mismatch') &&
+            loginForm.controls['captcha'].invalid &&
+            (loginForm.controls['captcha'].dirty ||
+            loginForm.controls['captcha'].touched)){
+            <div class="errMsg">
+                @if(loginForm.controls['captcha'].errors?.['required']){
+                Captcha is required
+                }
+            </div>
+            }
+            @if(errorType == 'captcha_expired' || errorType == 'captcha_mismatch'){
+            <div class="errMsg">
+                {{ errorMessage }}
+            </div>
+            }
+        </div>
+        <div
+            class="w-[50%] md:w-[45%] h-[52px] flex items-center gap-1 justify-between px-4 py-[14px] pl-2 bg-[#E8F1F3]">
+            <!-- <span class="text-[#4B585A] text-18 font-gilmer-bold">MwyR1</span> -->
+            <img class="text-[#4B585A] text-18 font-gilmer-bold w-[84px] md:w-auto" [src]="imagePath" alt="Captcha" />
+            <img src="/assets/images/icons/refresh.svg" width="24" height="28" (click)="genarateCaptha()" alt="Refresh"
+                class="cursor-pointer" title="Refresh" />
+        </div>
+    </div>
+    <div class="mb-4 lg:mb-6 text-center">
+        <button class="button button-default" title="Log In" (click)="handler__successMessage()"><span>Log
+                In</span></button>
+    </div>
+    <!-- @if(errorType){
+    <div class="mt-2 text-center errMsg">
+        <p [innerHTML]="errorType"></p>
+    </div>
+    } -->
+    <p class="text-12 text-secondary-6 text-center mb-0">Are you a new user?
+        <a routerLink="/register" type="button" class="text-12 font-gilmer-medium no-underline text-primary-1"
+            title="Register">
+            Register</a>
+    </p>
+    <app-component-loader></app-component-loader>
+</form>

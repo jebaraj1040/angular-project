@@ -1,0 +1,60 @@
+<div class="otp" id="otpModel2">
+    <form [formGroup]="verifyOtpForm" class="verifyOtpForm" autocomplete="off">
+        <p class="text-14 md:text-16 font-gilmer-medium mb-1 text-secondary-6">OTP Verification</p>
+        <p class="text-12 text-secondary-4 mb-4 lg:mb-8">Please enter the OTP sent to your mobile
+            number +91 {{formatMobileNumber(mobileNumber)}}
+        </p>
+        <div class="otp-wrapper">
+            <div class="otp-input-group">
+                <label for="otpCode" class="sr-only">OTP Label</label>
+                <input class="otp-input otp-single-field" type="text" id="otpCode" minlength="6" maxlength="6"
+                    [(ngModel)]="otpCode" formControlName="otpCode" autocomplete="off" />
+                @if(verifyOtpForm.get('otpCode').invalid &&
+                (verifyOtpForm.get('otpCode').dirty ||
+                verifyOtpForm.get('otpCode').touched)){
+                <div class="errMsg">
+                    @if(verifyOtpForm.get('otpCode').errors.required){
+                    <ng-container>
+                        Please Enter OTP
+                    </ng-container>
+                    }
+                    @if(verifyOtpForm.get('otpCode').errors.minlength){
+                    <ng-container>
+                        Please Enter 6 Digit Otp
+                    </ng-container>
+                    }
+                    @if(verifyOtpForm.get('otpCode').errors.maxlength){
+                    <ng-container>
+                        Please Enter 6 Digit Otp
+                    </ng-container>
+                    }
+                </div>
+                }
+            </div>
+            @if(errorMessage != "success"){
+            <div class="errMsg -mt-6 mb-6">
+                {{ errorMessage }}
+            </div>
+            }
+            @if(commonService.emailUpdateError){
+            <div class="errMsg -mt-6 mb-6">
+                {{commonService.emailUpdateError}}
+            </div>
+            }
+            <div class="-mt-4 mb-6 lg:mb-8">
+                @if(resend){
+                <p class="text-12 font-gilmer-medium mb-6 flex justify-between">Request New OTP in
+                    <span>00:{{timeLeft}} sec </span>
+                </p>
+                } @if(!resend){
+                <button type="button" class="text-12 font-gilmer-medium text-primary-1 no-underline" title={{resentOtp}}
+                    (click)="handler__resendOtp()">{{resentOtp}}</button>
+                }
+
+            </div>
+            <button class="button button-default" title="Verify OTP" (click)="verifyOtp()"><span>Verify
+                    OTP</span></button>
+        </div>
+
+    </form>
+</div>

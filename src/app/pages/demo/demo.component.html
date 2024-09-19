@@ -1,0 +1,87 @@
+<section class="spacer-pt-space spacer-pb-space">
+    <div class="container">
+        <strong><u>Pages List:</u></strong>
+        <ul class="pagesList">
+            <li><a [routerLink]="'/'" target="_blank">Login</a></li>
+        </ul>
+        <hr class="my-5">
+        <div class="row">
+            <div class="col-md-6">
+                <strong><u>Form Fields</u></strong>
+                <div class="form-group">
+                    <label for="Text field">Text field<sup>*</sup></label>
+                    <input type="text" data-type="input" class="form-control" name="Text field" id="Text field"
+                        autocomplete="off">
+                </div>
+                <div class="form-group type-select">
+                    <label for="Selectbox">Selectbox <sup>*</sup> </label>
+                    <input type="text" class="form-control" id="Selectbox" (click)="handler__selectInput($event)"
+                        readonly autocomplete="off">
+                    <div class="select-box" (click)="handler__selectBox($event)">
+                        <ng-scrollbar thumbClass="custom-scrollbars">
+                            <ul>
+                                <li (click)="handler__selectOption($event)">Selectbox</li>
+                                <li (click)="handler__selectOption($event)">Selectbox</li>
+                                <li (click)="handler__selectOption($event)">Selectbox</li>
+                                <li (click)="handler__selectOption($event)">Selectbox</li>
+                                <li (click)="handler__selectOption($event)">Selectbox</li>
+                                <li (click)="handler__selectOption($event)">Selectbox</li>
+                                <li (click)="handler__selectOption($event)">Selectbox</li>
+                                <li (click)="handler__selectOption($event)">Selectbox</li>
+                                <li (click)="handler__selectOption($event)">Selectbox</li>
+                            </ul>
+                        </ng-scrollbar>
+                    </div>
+                </div>
+                <div class="form-group focused type-date">
+                    <label for="datepicker">Date Picker<sup>*</sup></label>
+                    <input matInput [matDatepicker]="picker" placeholder="DD/MM/YYYY" class="form-control">
+                    <span class="icon-date" (click)="picker.open()"><span class="sr-only">Date Icon</span></span>
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
+                <div class="form-group type-radio">
+                    <ul>
+                        <li>
+                            <input type="radio" class="radio-button" id="customer_type_existing" name="customer_type">
+                            <label for="customer_type_existing">Existing Customer</label>
+                        </li>
+                        <li>
+                            <input type="radio" class="radio-button" id="customer_type_new" name="customer_type">
+                            <label for="customer_type_new">New Customer</label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group type-checkbox-typeTwo">
+                    <div class="checkbox-content">
+                        <input type="checkbox" class="checkbox" name="checkBox" id="toggleOne">
+                        <label for="toggleOne">Lorem ipsum dolor sit</label>
+                    </div>
+                </div>
+                <div class="form-group type-checkbox-typeTwo">
+                    <div class="checkbox-content checkbox-content-right">
+                        <input type="checkbox" class="checkbox" name="checkBox" id="toggleTwo">
+                        <label for="toggleTwo">Lorem ipsum dolor sit</label>
+                    </div>
+                </div>
+                <div class="form-group type-checkbox-typeThree">
+                    <div class="checkbox-content">
+                        <input type="checkbox" class="checkbox" name="checkBox" id="toggleThree">
+                        <label for="toggleThree">Lorem ipsum dolor sit</label>
+                    </div>
+                </div>
+                <div class="form-group type-checkbox-typeThree">
+                    <div class="checkbox-content checkbox-content-right">
+                        <input type="checkbox" class="checkbox" name="checkBox" id="toggleFour">
+                        <label for="toggleFour">Lorem ipsum dolor sit</label>
+                    </div>
+                </div>
+                <div class="form-group type-checkbox">
+                    <input class="checkbox" type="checkbox" id="submitCheck1">
+                    <label for="submitCheck1">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio cum
+                        accusamus veritatis corrupti, vitae dolorum quibusdam hic ratione saepe sed officia? Amet
+                        eligendi delectus voluptas dolorem pariatur optio, eius perferendis.</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

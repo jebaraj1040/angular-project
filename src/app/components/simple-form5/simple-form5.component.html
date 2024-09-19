@@ -1,0 +1,175 @@
+<div class="flex items-center justify-between mb-6">
+    <p class="flex items-center gap-2 text-[16px] md:text-[20px] text-black font-gilmer-medium mb-0">
+        <a class="block md:hidden w-fit" [attr.href]="'/loan-details?loanId=' + loanNumber" href="#" title="Back">
+            <img src="assets/images/icons/back-arrow.svg" alt="Arrow" width="24" height="24">
+        </a>
+        <span>Raise a Request</span>
+    </p>
+    <div class="hidden md:block">
+        <a [attr.href]="'/loan-details?loanId=' + loanNumber"
+            class="button button-sm gap-4 !flex !items-center !justify-start" title="Back">
+            <img src="assets/images/icons/arrow.svg" alt="Arrow" width="20" height="20"><span>Back</span>
+        </a>
+    </div>
+</div>
+
+
+<div class="bg-secondary-2 border border-secondary-3 p-4 md:p-6 rounded-xl mb-4 md:mb-6 relative">
+    <!-- Setp 1  -->
+    @if(!request_setp_1){
+    <div class="flex flex-wrap items-center w-full justify-between mb-8">
+        <div class="flex items-center xl:w-[48%] gap-3 rounded-lg">
+            <div
+                class="min-w-12 md:min-w-14 max-w-12 md:max-w-14 min-h-12 md:min-h-14 max-h-12 md:max-h-14 flex items-center justify-center border border-solid border-secondary-3 bg-white rounded-full">
+                <img src=" /assets/images/icons/home-loan.svg" alt="Home Loan" width="28" height="28">
+            </div>
+            <div class="block">
+                <p class="text-14 md:text-18 font-gilmer-medium text-secondary-6 mb-0">{{loanName}}
+                </p>
+                <p class="text-14 text-secondary-4 mb-0">{{loanNumber}}</p>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="requestForm" class="productForm" autocomplete="off">
+        <div class="row">
+            <div class="col-md-6 col-lg-4">
+                <div class="form-group type-select"
+                    [ngClass]="this.requestForm.controls.category.value == null ? '' : 'focused'">
+                    <label for="Selectbox">Select Request<sup>*</sup> </label>
+                    <input type="text" class="form-control" id="Selectbox" (click)="handler__selectInput($event)"
+                        readonly formControlName="category" name="category" autocomplete="off">
+                    <div class="select-box" (click)="handler__selectBox($event)">
+                        <ng-scrollbar thumbClass="custom-scrollbars">
+                            <ul>
+                                <li (click)="handler__selectOptionOther($event,'Customer','category', requestForm)">
+                                    Customer Details Update</li>
+                            </ul>
+                        </ng-scrollbar>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="form-group type-select">
+                    <label for="Selectbox">Select Request Type <sup>*</sup> </label>
+                    <input type="text" class="form-control" id="Selectbox" (click)="handler__selectInput($event)"
+                        readonly formControlName="requestType" autocomplete="off">
+                    <div class="select-box" (click)="handler__selectBox($event)">
+                        <ng-scrollbar thumbClass="custom-scrollbars">
+                            <ul>
+                                <li *ngFor="let item of items" [attr.id]="item.id" [attr.name]="item.name"
+                                    (click)="handler__selectOption($event,item,'requestType', requestForm)">
+                                    {{ item.name }}
+                                </li>
+                            </ul>
+                        </ng-scrollbar>
+                    </div>
+                    @if(requestForm.controls['requestType'].invalid &&
+                    (
+                    requestForm.controls['requestType'].touched)){
+                    <div class="errMsg">
+                        @if(requestForm.controls['requestType'].errors?.['required']){ Request Type Is Required }
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row" *ngFor="let doc of documents; let i = index">
+                    <div class="col-md-6">
+                        <div class="mb-6">
+                            <div class="fileUpload">
+                                <label for="upload_cv_{{i}}" class="fileUpload__label">Upload Document</label>
+                                <input type="file" name="resume" id="upload_cv_{{i}}"
+                                    (change)="uploadDocumentFile($event, i)" [formControlName]="'upload_cv_' + i">
+                                <input type="hidden" name="hidden" value="">
+                            </div>
+                            <span class="file-type">Supported formats jpg, jpeg, pdf, png (Max. file size - 5MB)</span>
+                            @if(fileNames){
+                            <div class="file-name">
+                                {{ fileNames[i] }}
+                                @if(i != 0) {
+
+                                <button type="button" (click)="removeFile(i)">Remove</button>
+                                }
+                            </div>
+                            }
+                            <div class="errMsg"
+                                *ngIf="requestForm.get('upload_cv_' + i)?.invalid && 
+                                (requestForm.get('upload_cv_' + i)?.dirty || requestForm.get('upload_cv_' + i)?.touched)">
+                                <div *ngIf="requestForm.get('upload_cv_' + i)?.errors?.['required']">
+                                    File is required.
+                                </div>
+                                <div *ngIf="requestForm.get('upload_cv_' + i)?.errors?.['invalidFileType']">
+                                    Only files of type .png, .jpg, .jpeg, or .pdf are allowed.
+                                </div>
+                                <div *ngIf="requestForm.get('upload_cv_' + i)?.errors?.['fileTooLarge']">
+                                    File size must not exceed 5MB.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if(documentCount < 3){ <div class="col-lg-4">
+                <div class="flex items-center justify-center md:justify-start lg:justify-end lg:mt-4 mb-6">
+                    <button type="button" class="flex gap-3 text-12 leading-4 font-gilmer-medium text-primary-1 "
+                        title="Add Document" (click)="addDocument()">
+                        Add Document
+                        <img src="/assets/images/icons/add-icon.svg" alt="Add" width="18" height="18">
+                    </button>
+                </div>
+        </div>
+        }
+</div>
+
+@if(errorType ){
+<div class="errMsg">
+    {{ errorType }}
+</div>
+}
+</form>
+<button type="button" class="button button-default" title="Submit Request" (click)="getRaiseRequest()">
+    <span>Submit Request</span>
+</button>
+
+}
+
+
+<!-- Setp 2  -->
+@if(!request_setp_2){
+<div class="ripple w-[160px] h-[160px] md:w-[192px] md:h-[192px]">
+    <div class="ripple__circle"></div>
+    <div class="ripple__tick">
+        <svg version="1.1" viewBox="0 0 130.2 130.2">
+            <polyline fill="none" stroke="#fff" stroke-width="15" stroke-linecap="round" stroke-miterlimit="10"
+                points="100.2,40.2 51.5,88.8 29.8,67.5 " class="ripple__tick--path"></polyline>
+        </svg>
+    </div>
+    <div class="ripple__wave"></div>
+</div>
+<p class="text-14 text-center md:text-18 text-secondary-6 font-gilmer-medium mb-1 md:mb-2">Thank you! We have
+    received your service Request.
+</p>
+<p class="text-12 text-center md:text-14 text-secondary-6 mb-4">Expect a resolution by 7 business days.</p>
+<ul
+    class="flex justify-between max-w-[268px] mx-auto bg-white rounded-lg px-4 py-2 text-center border border-secondary-3 mb-6 md:mb-8">
+    <li class="flex flex-col last:border-0 border-r border-r-secondary-3 w-1/2">
+        <span class="text-12">Request No</span>
+        <span class="text-14 text-secondary-6 font-gilmer-medium">{{interactionId}}</span>
+    </li>
+    <!-- Todo -->
+    <li class="flex flex-col last:border-0 border-r border-r-secondary-3 w-1/2">
+        <span class="text-12">Time</span>
+        <span class="text-14 text-secondary-6 font-gilmer-medium">{{currentTime}}</span>
+    </li>
+</ul>
+<div class="flex justify-center">
+    <button type="button" class="button button-lg gap-4 !flex !items-center" title="View Tickets"
+        (click)="viewTicket()">
+        <span>View Tickets</span>
+    </button>
+</div>
+}
+<app-component-loader></app-component-loader>
+</div>

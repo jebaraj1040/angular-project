@@ -1,0 +1,63 @@
+@if(loanIsFound){
+<h2 class="text-[16px] md:text-[20px] text-black font-gilmer-medium mb-4 md:mb-6">Loans Details</h2>
+<div class="grid gap-y-4 md:gap-y-6">
+    <div *ngFor="let loan of data" class="bg-secondary-2 border border-secondary-3 p-4 md:p-6 rounded-xl">
+        <div class="flex flex-wrap items-center w-full justify-between pb-4 border-b border-b-secondary-3">
+
+            <div class="flex items-center xl:w-[48%] gap-3 rounded-lg">
+                <div
+                    class="min-w-12 md:min-w-14 max-w-12 md:max-w-14 min-h-12 md:min-h-14 max-h-12 md:max-h-14 flex items-center justify-center border border-solid border-secondary-3 bg-white rounded-full">
+                    @if(loan?.LoanName === "Home Loan"){
+                    <img src="/assets/images/icons/home-loan.svg" alt="Home Loan" width="28" height="28" />
+                    }@else{
+                    <img src="/assets/images/icons/home-extension.svg" alt="Home Loan" width="28" height="28" />
+                    }
+                </div>
+                <div class="block">
+                    <p class="text-14 md:text-18 font-gilmer-medium text-secondary-6 mb-0">{{loan?.LoanName}}</p>
+                    <p class="text-14 text-secondary-4 mb-0">{{loan?.LoanNumber}}</p>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <button class="button button-sm" title="More Details" (click)="loanDetails(loan?.LoanNumber)">
+                    <span>More Details</span>
+                </button>
+            </div>
+        </div>
+        <ul class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
+            <li>
+                <p class="text-12 text-secondary-4 mb-0">Disbursed Amount</p>
+                <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">₹&nbsp;{{loan?.DisbAmount}}</p>
+            </li>
+            <li>
+                <p class="text-12 text-secondary-4 mb-0">Tenure</p>
+                <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">{{loan?.TotalTenure}} Months</p>
+            </li>
+            <li>
+                <p class="text-12 text-secondary-4 mb-0">Balance Tenure</p>
+                <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">{{loan?.BalanceTenure}} Months</p>
+            </li>
+            <li>
+                <p class="text-12 text-secondary-4 mb-0">EMI for Last Month</p>
+                <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">₹&nbsp;{{loan?.EMIAmount}}</p>
+            </li>
+        </ul>
+        <div class="md:hidden">
+            <button title="More Details" class="button button-sm mt-6" (click)="loanDetails(loan?.LoanNumber)">
+                <span>More Details</span>
+            </button>
+        </div>
+
+    </div>
+</div>
+}
+
+<!-- No loan information -->
+@if(noLoanFound){
+<div class="flex items-center justify-center h-[inherit]">
+    <app-simple-card5></app-simple-card5>
+</div>
+}
+<app-component-loader></app-component-loader>
+
+<app-toast [showToastMsg]="loanError"></app-toast>

@@ -1,0 +1,293 @@
+@if(loanDetailsFound){
+<div class="flex items-center justify-between mb-6">
+    <p class="flex items-center gap-2 text-[16px] md:text-[20px] text-black font-gilmer-medium mb-0">
+        <a routerLink="/loan-listing" class="block md:hidden w-fit" title="Back">
+            <img src=" assets/images/icons/back-arrow.svg" alt="Arrow" width="24" height="24">
+        </a>
+        <span>Loans Details</span>
+    </p>
+    <div class="hidden md:block">
+        <a routerLink="/loan-listing" type="button" class="button button-sm gap-4 !flex !items-center !justify-start"
+            title="Back">
+            <img src="assets/images/icons/arrow.svg" alt="Arrow" width="20" height="20"><span>Back</span>
+        </a>
+    </div>
+</div>
+
+<div class="bg-secondary-2 border border-secondary-3 p-4 md:p-6 rounded-xl mb-4 md:mb-6 ">
+    <div class="flex justify-center md:justify-end -mt-4 md:-mt-6 mb-3 md:mb-0">
+        <p
+            class="inline-block bg-primary-1 text-white font-gilmer-medium text-12 mb-0 leading-5 md:leading-6 md:py-1 px-3 rounded-b-xl">
+            Your next due is on {{formatDate2(paymentData?.NextEmiDt)}}</p>
+    </div>
+    <div class="flex flex-wrap items-center w-full justify-between pb-4 border-b border-b-secondary-3">
+        <div class="flex items-center xl:w-[48%] gap-3 rounded-lg">
+            <div
+                class="min-w-12 md:min-w-14 max-w-12 md:max-w-14 min-h-12 md:min-h-14 max-h-12 md:max-h-14 flex items-center justify-center border border-solid border-secondary-3 bg-white rounded-full">
+                <img src=" /assets/images/icons/home-loan.svg" alt="Home Loan" width="28" height="28">
+            </div>
+            <div class="block">
+                <p class="text-14 md:text-18 font-gilmer-medium text-secondary-6 mb-0">{{loanInfoData?.LoanType}}
+                </p>
+                <p class="text-14 text-secondary-4 mb-0">{{loanInfoData?.LoanNumber}}</p>
+            </div>
+        </div>
+    </div>
+    <!-- Table  -->
+    <div class="mb-6 md:mb-4">
+        <ul class="grid grid-cols-2 md:grid-cols-4 gap-4 py-4  border-b border-b-secondary-3 last:pb-0 last:border-b-0">
+            <li>
+                <p class="text-12 text-secondary-4 mb-0">Disbursed Amount</p>
+                <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                    ₹&nbsp;{{loanInfoData?.LoanAmount}}</p>
+            </li>
+            <li>
+                <p class="text-12 text-secondary-4 mb-0">Tenure</p>
+                <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">{{loanInfoData?.TotalEmi}}
+                    Months</p>
+            </li>
+            <li>
+                <p class="text-12 text-secondary-4 mb-0">Balance Tenure</p>
+                <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">{{loanInfoData?.PendingEMI}}
+                    Months</p>
+            </li>
+            <li>
+                <p class="text-12 text-secondary-4 mb-0">EMI for Last Month</p>
+                <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                    ₹&nbsp;{{loanInfoData?.InterestRate}}</p>
+            </li>
+        </ul>
+    </div>
+    <!-- Chart  -->
+    <div class="md:border-t md:border-t-secondary-3 md:pt-6">
+        <div
+            class="flex items-center justify-between flex-wrap lg:flex-nowrap bg-primary-1 pt-4 pb-8 lg:py-4 px-5 lg:px-3 md:rounded-xl mb-6 -mx-4 md:mx-0">
+            <div class="w-full md:w-[55%] flex items-center justify-center md:justify-around">
+                <div class="chart">
+                    <div class="chart__canvas">
+                        <canvas id="chart"></canvas>
+                    </div>
+                    <div class="chart__imgBlock">
+                        <div class="chart__canvasIcon">
+                            <div class="chart__img">
+                                <img src="/assets/images/icons/assets.svg" alt="loangraph" width="40" height="41">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="calculator lg:flex-grow">
+                    <ul class="calculator__detailWrap">
+                        <li>
+                            <p class="calculator__finalResult">₹&nbsp;{{loanInfoData?.LoanAmount}}</p>
+                            <p class="calculator__resultLabel calculator__resultLabel--lightBlue">Total Amount
+                            </p>
+                        </li>
+                        <li>
+                            <p class="calculator__finalResult">₹&nbsp;{{loanInfoData?.TotalAmountPaid}}</p>
+                            <p class="calculator__resultLabel">Amount Paid So Far</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="w-full md:w-[40%] text-center">
+                <p
+                    class="w-fit text-12 leading-6 text-secondary-1 font-gilmer-medium m-auto rounded-[40px] py-[2px] px-4 mb-3 bg-[#E9FCFF33]">
+                    Your EMI Amount for Next Month</p>
+                <p class="text-24 leading-10 lg:leading-8 text-secondary-1 font-gilmer-bold mb-0">
+                    ₹&nbsp;{{loanInfoData?.InterestRate}}</p>
+                <p class="text-12 lg:leading-4 font-gilmer-medium text-secondary-1 mb-4">Payable on
+                    {{loanInfoData?.PayableDate}}</p>
+                <button class="button button-white flex items-center gap-4" title="Pay Now" (click)="applyButton()">
+                    <span>Pay Now</span>
+                    <img src="assets/images/icons/arrow.svg" class="rotate-180" alt="Arrow" width="20" height="20">
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Tabs  -->
+    <div class="flex gap-3 md:gap-4 overflow-auto mb-6">
+        <button
+            class="bg-white border border-[#D5DCDC] text-14 font-gilmer-medium text-secondary-6 text-center py-2 px-4 rounded-3xl [&.active]:bg-primary-1 [&.active]:border-primary-1 [&.active]:text-white whitespace-nowrap"
+            [class.active]="selectedTab == 1" title="Summary" (click)="selectTab(1)">Summary</button>
+        <button
+            class="bg-white border border-[#D5DCDC] text-14 font-gilmer-medium text-secondary-6 text-center py-2 px-4 rounded-3xl [&.active]:bg-primary-1 [&.active]:border-primary-1 [&.active]:text-white whitespace-nowrap"
+            [class.active]="selectedTab == 2" title="Transaction" (click)="selectTab(2)">Transaction</button>
+        <button
+            class="bg-white border border-[#D5DCDC] text-14 font-gilmer-medium text-secondary-6 text-center py-2 px-4 rounded-3xl [&.active]:bg-primary-1 [&.active]:border-primary-1 [&.active]:text-white whitespace-nowrap"
+            [class.active]="selectedTab == 3" title="Service Request" (click)="selectTab(3)">Service Request</button>
+    </div>
+    <div class="tab-content">
+        <!-- Tab 1 -->
+        @if(selectedTab == 1){
+        <div class="md:p-6 md:rounded-[12px] md:bg-white">
+            <ul
+                class="grid grid-cols-2 md:grid-cols-4 gap-4 pb-4 mb-4 border-b border-b-secondary-3 last:pb-0 last:mb-0 last:border-b-0">
+                <li>
+                    <p class="text-12 text-secondary-4 mb-0">First Disbursal Date</p>
+                    <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                        {{paymentData?.FirstDisbursalDate}}</p>
+                </li>
+                <li>
+                    <p class="text-12 text-secondary-4 mb-0">Last Disbursal Date</p>
+                    <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                        {{paymentData?.LastDisbursalDate}}</p>
+                </li>
+                <li>
+                    <p class="text-12 text-secondary-4 mb-0">Next Installment</p>
+                    <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                        {{paymentData?.NextEmiDt}}</p>
+                </li>
+                <li>
+                    <p class="text-12 text-secondary-4 mb-0">Installment Frequency</p>
+                    <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                        {{paymentData?.InstallmentFrequency}}</p>
+                </li>
+            </ul>
+            <ul
+                class="grid grid-cols-2 md:grid-cols-4 gap-4 pb-4 mb-4 border-b border-b-secondary-3 last:pb-0 last:mb-0 last:border-b-0">
+                <li>
+                    <p class="text-12 text-secondary-4 mb-0">IFSC Code</p>
+                    <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                        {{paymentData?.IFSC_Code}}</p>
+                </li>
+                <li>
+                    <p class="text-12 text-secondary-4 mb-0">Rate Type</p>
+                    <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                        {{paymentData?.RateType}}</p>
+                </li>
+                <li>
+                    <p class="text-12 text-secondary-4 mb-0">Amount Overdue</p>
+                    <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                        ₹{{paymentData?.AmountOverdue}}</p>
+                </li>
+                <li>
+                    <p class="text-12 text-secondary-4 mb-0">Rate Interest</p>
+                    <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                        {{paymentData?.RateInterest}}</p>
+                </li>
+            </ul>
+            <ul
+                class="grid grid-cols-2 md:grid-cols-4 gap-4 pb-4 mb-4 border-b border-b-secondary-3 last:pb-0 last:mb-0 last:border-b-0">
+                <li>
+                    <p class="text-12 text-secondary-4 mb-0">Repayment Mode</p>
+                    <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                        {{paymentData?.PayMethod}}</p>
+                </li>
+                <li>
+                    <p class="text-12 text-secondary-4 mb-0">Repayment A/C No </p>
+                    <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                        {{paymentData?.BankAcNo}}</p>
+                </li>
+                <li>
+                    <p class="text-12 text-secondary-4 mb-0">Repayment Bank Name</p>
+                    <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                        {{paymentData?.BankName}}</p>
+                </li>
+                <li>
+                    <p class="text-12 text-secondary-4 mb-0">MICR</p>
+                    <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                        {{paymentData?.MICR}}</p>
+                </li>
+            </ul>
+        </div>
+        }
+        <!-- Tab 2 -->
+        @if(selectedTab == 2){
+        @if(collTransactionData){
+        <div class="flex flex-col gap-4">
+            @for(data of collTransactionData; track $index){
+            <ul
+                class="grid grid-cols-2 md:grid-cols-4 gap-4 px-4 md:px-6 py-4 -mx-4 md:mx-0 md:rounded-[12px] bg-white">
+                <li>
+                    <p class="text-12 text-secondary-4 mb-0">Month</p>
+                    <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                        {{formatDate(data?.ReceiptDt)}}</p>
+                </li>
+                <li>
+                    <p class="text-12 text-secondary-4 mb-0">Emi For Last Month</p>
+                    <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                        ₹&nbsp;{{data?.LastMonthEmi}}</p>
+                </li>
+                <li>
+                    <p class="text-12 text-secondary-4 mb-0">Interest Caplitalized</p>
+                    <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                        {{data?.InterestCaplitalized || '-'}} </p>
+                </li>
+                <li>
+                    <p class="text-12 text-secondary-4 mb-0">Ad Hoc Repayment</p>
+                    @if( data?.AdHocRepayment == "N" ){
+                    <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                        No</p>
+                    }
+                    @if(data?.AdHocRepayment != "N"){
+                    <p class="text-14 font-gilmer-medium text-secondary-6 mb-0">
+                        {{data?.AdHocRepayment}}&nbsp;₹</p>
+                    }
+                </li>
+            </ul>
+            }
+        </div>
+        }
+        }
+        <!-- Tab 3 -->
+        @if(selectedTab == 3){
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-4">
+            <div class="flex items-center justify-between border border-secondary-3 rounded-lg py-3 px-4 bg-white cursor-pointer"
+                (click)="raiseRequest()">
+                <div class="flex items-center gap-2">
+                    <img src="/assets/images/icons/home-loan.svg" alt="Home Loan" width="32" height="32" />
+                    <p class="text-12 text-secondary-6 font-gilmer-medium mb-0">Raise a Request
+                    </p>
+                </div>
+                <img src="/assets/images/icons/arrow-right-black.svg" alt="Arrow left" width="32" height="32" />
+            </div>
+            <div class="flex items-center justify-between border border-secondary-3 rounded-lg py-3 px-4 bg-white cursor-pointer"
+                (click)="trackRequest()">
+                <div class="flex items-center gap-2">
+                    <img src="/assets/images/icons/home-loan.svg" alt="Home Loan" width="32" height="32" />
+                    <p class="text-12 text-secondary-6 font-gilmer-medium mb-0">Track a Request</p>
+                </div>
+                <img src="/assets/images/icons/arrow-right-black.svg" alt="Arrow left" width="32" height="32" />
+            </div>
+            <div class="flex items-center justify-between border border-secondary-3 rounded-lg py-3 px-4 bg-white cursor-pointer"
+                (click)="incomeTax()">
+                <div class="flex items-center gap-2">
+                    <img src="/assets/images/icons/home-loan.svg" alt="Home Loan" width="32" height="32" />
+                    <p class="text-12 text-secondary-6 font-gilmer-medium mb-0">Income Tax Certificate</p>
+                </div>
+                <img src="/assets/images/icons/arrow-right-black.svg" alt="Arrow left" width="32" height="32" />
+            </div>
+            <!-- <div class="flex items-center justify-between border border-secondary-3 rounded-lg py-3 px-4 bg-white"
+                data-modal-target="#requestModalPopup">
+                <div class="flex items-center gap-2">
+                    <img src="/assets/images/icons/home-loan.svg" alt="Home Loan" width="32" height="32" />
+                    <p class="text-12 text-secondary-6 font-gilmer-medium mb-0">Provisional Certificate</p>
+                </div>
+                <img src="/assets/images/icons/arrow-right-black.svg" alt="Arrow left" width="32" height="32" />
+            </div> -->
+            <div class="flex items-center justify-between border border-secondary-3 rounded-lg py-3 px-4 bg-white"
+                data-modal-target="#requestModalPopup" (click)="welcomeLetterFun()">
+                <div class="flex items-center gap-2">
+                    <img src="/assets/images/icons/documents.svg" alt="Home Loan" width="32" height="32" />
+                    <p class="text-12 text-secondary-6 font-gilmer-medium mb-0">Welcome Letter</p>
+                </div>
+                <img src="/assets/images/icons/arrow-right-black.svg" alt="Arrow left" width="32" height="32" />
+            </div>
+            <div class="flex items-center justify-between border border-secondary-3 rounded-lg py-3 px-4 bg-white"
+                data-modal-target="#requestModalPopup">
+                <div class="flex items-center gap-2">
+                    <img src="/assets/images/icons/loan.svg" alt="Home Loan" width="32" height="32" />
+                    <p class="text-12 text-secondary-6 font-gilmer-medium mb-0">Sanction Letter</p>
+                </div>
+                <img src="/assets/images/icons/arrow-right-black.svg" alt="Arrow left" width="32" height="32" />
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+}
+
+<app-success-modal></app-success-modal>
+<app-request-modal [LoanNumber]="LoanNumber" [loanInfoData]="loanInfoData"></app-request-modal>
+<app-component-loader></app-component-loader>

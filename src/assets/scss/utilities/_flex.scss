@@ -1,0 +1,220 @@
+// Display flex property
+.d-flex {
+    display: flex;
+}
+
+.flex-nowrap {
+    flex-wrap: nowrap;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-row-reverse {
+    flex-direction: row-reverse;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.justify-content-start {
+    justify-content: start;
+}
+
+.justify-content-end {
+    justify-content: flex-end;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.justify-content-around {
+    justify-content: space-around;
+}
+
+.justify-content-evenly {
+    justify-content: space-evenly;
+}
+
+.align-items-start {
+    align-items: flex-start;
+}
+
+.align-items-end {
+    align-items: flex-end;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.align-items-baseline {
+    align-items: baseline;
+}
+
+.align-items-stretch {
+    align-items: stretch;
+}
+
+.align-content-start {
+    align-content: flex-start;
+}
+
+.align-content-end {
+    align-content: flex-end;
+}
+
+.align-content-center {
+    align-content: center;
+}
+
+.align-content-between {
+    align-content: space-between;
+}
+
+.align-content-around {
+    align-content: space-around;
+}
+
+.align-content-stretch {
+    align-content: stretch;
+}
+
+.flex-fill {
+    flex: 1 1 auto;
+}
+
+.order-0 {
+    order: 0;
+}
+
+.order-1 {
+    order: 1;
+}
+
+.order-2 {
+    order: 2;
+}
+
+.order-3 {
+    order: 3;
+}
+
+.order-4 {
+    order: 4;
+}
+
+.order-5 {
+    order: 5;
+}
+
+@each $point in map-keys($grid-breakpoints) {
+    $min: map-get($grid-breakpoints, $point);
+    $media: "screen";
+    @if ($min !=0) {
+        $media: "(min-width:" + $min + ")";
+    }
+    @media #{$media} {
+        .d-#{$point}-flex {
+            display: flex !important;
+        }
+        .flex-#{$point}-nowrap {
+            flex-wrap: nowrap;
+        }
+        .flex-#{$point}-wrap {
+            flex-wrap: wrap;
+        }
+        .flex-#{$point}-row {
+            flex-direction: row;
+        }
+        .flex-#{$point}-row-reverse {
+            flex-direction: row-reverse;
+        }
+        .flex-#{$point}-column {
+            flex-direction: column;
+        }
+        .justify-content-#{$point}-start {
+            justify-content: start;
+        }
+        .justify-content-#{$point}-end {
+            justify-content: flex-end;
+        }
+        .justify-content-#{$point}-center {
+            justify-content: center;
+        }
+        .justify-content-#{$point}-between {
+            justify-content: space-between;
+        }
+        .justify-content-#{$point}-around {
+            justify-content: space-around;
+        }
+        .justify-content-#{$point}-evenly {
+            justify-content: space-evenly;
+        }
+        .align-items-#{$point}-start {
+            align-items: flex-start;
+        }
+        .align-items-#{$point}-end {
+            align-items: flex-end;
+        }
+        .align-items-#{$point}-center {
+            align-items: center;
+        }
+        .align-items-#{$point}-baseline {
+            align-items: baseline;
+        }
+        .align-items-#{$point}-stretch {
+            align-items: stretch;
+        }
+        .align-content-#{$point}-start {
+            align-content: flex-start;
+        }
+        .align-content-#{$point}-end {
+            align-content: flex-end;
+        }
+        .align-content-#{$point}-center {
+            align-content: center;
+        }
+        .align-content-#{$point}-between {
+            align-content: space-between;
+        }
+        .align-content-#{$point}-around {
+            align-content: space-around;
+        }
+        .align-content-#{$point}-stretch {
+            align-content: stretch;
+        }
+        .flex-#{$point}-fill {
+            flex: 1 1 auto;
+        }
+        .order-#{$point}-0 {
+            order: 0;
+        }
+        .order-#{$point}-1 {
+            order: 1;
+        }
+        .order-#{$point}-2 {
+            order: 2;
+        }
+        .order-#{$point}-3 {
+            order: 3;
+        }
+        .order-#{$point}-4 {
+            order: 4;
+        }
+        .order-#{$point}-5 {
+            order: 5;
+        }
+    }
+}

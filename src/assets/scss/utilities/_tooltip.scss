@@ -1,0 +1,190 @@
+// Tooltip property
+.tooltip-button {
+    min-width: 20px;
+    height: 20px;
+    background: transparent
+        url("#{$asset_cdn_base_path}/assets/images/icons/info-grey.svg")
+        no-repeat;
+    background-size: cover;
+    border: 0;
+    padding: 0;
+    margin-left: 5px;
+}
+
+.form-group-tooltop {
+    .form-control {
+        padding-right: 35px;
+    }
+    .tooltip-button {
+        margin-top: 15px;
+        position: absolute;
+        right: 10px;
+    }
+}
+
+[data-tooltip="tooltip"] {
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    &:hover {
+        .tooltip {
+            display: block;
+        }
+    }
+}
+
+.tooltip {
+    display: none;
+    width: 232px;
+    font-size: 12px;
+    font-family: $font-regular;
+    line-height: 20px;
+    color: $text-primary-1;
+    text-align: left;
+    padding: 12px;
+    background: #f9fafb;
+    position: absolute;
+    z-index: 1000;
+    box-shadow: 0px 4px 8px -2px #001f5b1a;
+    * {
+        font-size: 12px;
+        font-family: $font-regular;
+        line-height: 20px;
+        color: #e7ebeb;
+        text-align: left;
+        margin: 0;
+    }
+    &:before {
+        content: "";
+        width: 14px;
+        height: 14px;
+        border-top: 1px solid #f9fafb;
+        border-right: 1px solid #f9fafb;
+        background: #f9fafb;
+        position: absolute;
+        margin: auto;
+        box-shadow: 0px 2px 4px -4px #001f5b0f;
+    }
+    &-top {
+        top: inherit;
+        bottom: calc(100% + 10px);
+        left: 50%;
+        right: inherit;
+        transform: translateX(-50%);
+        &:before {
+            top: inherit;
+            bottom: -7px;
+            left: 0;
+            right: 0;
+            transform: rotate(135deg);
+        }
+    }
+    &-right {
+        top: 50%;
+        bottom: inherit;
+        left: calc(100% + 10px);
+        right: inherit;
+        transform: translateY(-50%);
+        &:before {
+            top: 0;
+            bottom: 0;
+            left: -7px;
+            right: inherit;
+            transform: rotate(-135deg);
+        }
+    }
+    &-bottom {
+        top: calc(100% + 10px);
+        bottom: initial;
+        left: 50%;
+        right: initial;
+        transform: translateX(-50%);
+        &:before {
+            top: -7px;
+            bottom: initial;
+            left: 0;
+            right: 0;
+            transform: rotate(-45deg);
+        }
+    }
+    &-left {
+        top: 50%;
+        bottom: initial;
+        left: initial;
+        right: calc(100% + 10px);
+        transform: translateY(-50%);
+        &:before {
+            top: 0;
+            bottom: 0;
+            left: inherit;
+            right: -7px;
+            transform: rotate(45deg);
+        }
+    }
+}
+
+@each $point in map-keys($grid-breakpoints) {
+    $min: map-get($grid-breakpoints, $point);
+    $media: "screen";
+    @if ($min !=0) {
+        $media: "(min-width:" + $min + ")";
+    }
+    @media #{$media} {
+        .tooltip-#{$point}-top {
+            top: inherit;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            right: inherit;
+            transform: translateX(-50%);
+            &:before {
+                top: inherit;
+                bottom: -7px;
+                left: 0;
+                right: 0;
+                transform: rotate(135deg);
+            }
+        }
+        .tooltip-#{$point}-right {
+            top: 50%;
+            bottom: inherit;
+            left: calc(100% + 10px);
+            right: inherit;
+            transform: translateY(-50%);
+            &:before {
+                top: 0;
+                bottom: 0;
+                left: -7px;
+                right: inherit;
+                transform: rotate(-135deg);
+            }
+        }
+        .tooltip-#{$point}-bottom {
+            top: calc(100% + 10px);
+            bottom: initial;
+            left: 50%;
+            right: initial;
+            transform: translateX(-50%);
+            &:before {
+                top: -7px;
+                bottom: initial;
+                left: 0;
+                right: 0;
+                transform: rotate(-45deg);
+            }
+        }
+        .tooltip-#{$point}-left {
+            top: 50%;
+            bottom: initial;
+            left: initial;
+            right: calc(100% + 10px);
+            transform: translateY(-50%);
+            &:before {
+                top: 0;
+                bottom: 0;
+                left: inherit;
+                right: -7px;
+                transform: rotate(45deg);
+            }
+        }
+    }
+}

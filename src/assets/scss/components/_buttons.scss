@@ -1,0 +1,32 @@
+.button {
+    @apply min-h-8 md:min-h-12 inline-flex items-center justify-center text-16 font-gilmer-medium md:font-gilmer-bold text-primary-2 border-[2px] border-primary-2 no-underline relative;
+    padding: 8px 16px;
+    transition: all 0.3s linear;
+    span {
+        transition: all 1s ease;
+    }
+    &:hover span {
+        transform: scale(1.1);
+    }
+    &-sm {
+        min-width: 145px;
+    }
+    &-md {
+        min-width: 180px;
+    }
+    &-lg {
+        min-width: 210px;
+    }
+    &-xl {
+        min-width: 260px;
+    }
+    &-full {
+        min-width: 100% !important;
+    }
+    &-default {
+        @apply min-w-full md:min-w-[240px] bg-primary-1 border-0 text-white;
+    }
+    &-white {
+        @apply min-w-full md:min-w-[210px] bg-white border-0 text-secondary-6 text-center;
+    }
+}

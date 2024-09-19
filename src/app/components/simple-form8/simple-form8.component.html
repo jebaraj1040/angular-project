@@ -1,0 +1,167 @@
+<div class="flex items-center justify-between mb-6">
+    <p class="flex items-center gap-2 text-[16px] md:text-[20px] text-black font-gilmer-medium mb-0">
+        <a routerLink="/loan-listing" class="block md:hidden w-fit" href="#" title="Back">
+            <img src="assets/images/icons/back-arrow.svg" alt="Arrow" width="24" height="24">
+        </a>
+        <span>Change Password</span>
+    </p>
+    <div class="hidden md:block">
+        <a routerLink="/loan-listing" class="button button-sm gap-4 !flex !items-center !justify-start" title="Back">
+            <img src="assets/images/icons/arrow.svg" alt="Arrow" width="20" height="20"><span>Back</span>
+        </a>
+    </div>
+</div>
+
+<!-- Step 1 -->
+@if(changePassStep1){
+<div class="bg-secondary-2 border border-secondary-3 p-4 md:p-6 rounded-xl mb-4 md:mb-6 relative">
+    <app-otp-modal2 [mobileNumber]="mobileNumber" [errorMessage]="errorMessage"
+        (otpEntered)="handleOtpEntered($event)"></app-otp-modal2>
+</div>
+}
+
+<!-- Step 2 -->
+@if(changePassStep2){
+<form [formGroup]="forgetpasswordForm" class="forgetpasswordForm" autocomplete="off">
+    <div class="bg-secondary-2 border border-secondary-3 p-4 md:p-6 rounded-xl mb-4 md:mb-6 relative">
+        <p class="text-14 md:text-16 font-gilmer-medium text-secondary-6 mb-[2px]">Create New Password
+        </p>
+        <p class="text-12 text-secondary-4 mb-6">Password should minimum eight characters with minimum one special
+            character, one numeric , one upper case , one lower case alphabet.
+        </p>
+        <div class="row">
+            <div class="col-md-6 col-lg-4">
+                <div class="form-group relative">
+                    <label for="enterPassword">Enter Old Password</label>
+                    <input type="{{ showOldEnterPassword ? 'text' : 'password' }}" data-type="input"
+                        class="form-control" name="enter-password" id="enterPassword" formControlName="enter_password"
+                        autocomplete="off" formControlName="old_password">
+                    <button type="button" class="absolute w-6 h-6 right-3 top-[14px]"
+                        (click)="toggleOldEnterPasswordVisibility()">
+                        @if(!showOldEnterPassword){
+                        <img src="/assets/images/icons/visibility_off.svg" class="m-auto" width="21" height="22"
+                            alt="Hide Password">
+                        }
+                        @if(showOldEnterPassword){
+                        <img src="/assets/images/icons/visibility.svg" class="m-auto" width="22" height="15"
+                            alt="Show Password">
+                        }
+                    </button>
+                    @if(forgetpasswordForm.get('old_password').invalid &&
+                    (forgetpasswordForm.get('old_password').dirty ||
+                    forgetpasswordForm.get('old_password').touched)){
+                    <div class="errMsg">
+                        @if(forgetpasswordForm.get('old_password').errors.required){
+                        <ng-container>
+                            Please Enter Old Password
+                        </ng-container>
+                        }
+                        @if(forgetpasswordForm.get('old_password').errors.maxlength){
+                        <ng-container>
+                            Maximum 40 Characters Allowed
+                        </ng-container>
+                        }
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="form-group relative">
+                    <label for="enterPassword">Enter Password</label>
+                    <input type="{{ showEnterPassword ? 'text' : 'password' }}" data-type="input" class="form-control"
+                        name="enter-password" id="enterPassword" formControlName="enter_password" autocomplete="off"
+                        formControlName="new_password">
+                    <button type="button" class="absolute w-6 h-6 right-3 top-[14px]"
+                        (click)="toggleEnterPasswordVisibility()">
+                        @if(!showEnterPassword){
+                        <img src="/assets/images/icons/visibility_off.svg" class="m-auto" width="21" height="22"
+                            alt="Hide Password">
+                        }
+                        @if(showEnterPassword){
+                        <img src="/assets/images/icons/visibility.svg" class="m-auto" width="22" height="15"
+                            alt="Show Password">
+                        }
+                    </button>
+                    @if(forgetpasswordForm.get('new_password').invalid &&
+                    (forgetpasswordForm.get('new_password').dirty ||
+                    forgetpasswordForm.get('new_password').touched)){
+                    <div class="errMsg">
+                        @if(forgetpasswordForm.get('new_password').errors.required){
+                        <ng-container>
+                            Please Enter Password
+                        </ng-container>
+                        }
+                        @if(forgetpasswordForm.get('new_password').errors.pattern){
+                        <ng-container>
+                            Please enter valid Password.
+                        </ng-container>
+                        }
+                        @if(forgetpasswordForm.get('new_password').errors.minlength){
+                        <ng-container>
+                            Please Enter Minimum 8 Characters
+                        </ng-container>
+                        }
+                        @if(forgetpasswordForm.get('new_password').errors.maxlength){
+                        <ng-container>
+                            Maximum 30 Characters Allowed
+                        </ng-container>
+                        }
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="form-group relative">
+                    <label for="reEnterPassword">Re-Enter Password</label>
+                    <input type="{{ showReEnterPassword ? 'text' : 'password' }}" data-type="input" class="form-control"
+                        name="re-enter-password" id="reEnterPassword" [(ngModel)]="confirm_new_password"
+                        formControlName="confirm_new_password" autocomplete="off">
+                    <button type="button" class="absolute w-6 h-6 right-3 top-[14px]"
+                        (click)="toggleReEnterPasswordVisibility()">
+                        @if(!showReEnterPassword){
+                        <img src="/assets/images/icons/visibility_off.svg" class="m-auto" width="21" height="22"
+                            alt="Hide Password">
+                        }
+                        @if(showReEnterPassword){
+                        <img src="/assets/images/icons/visibility.svg" class="m-auto" width="22" height="15"
+                            alt="Show Password">
+                        }
+                    </button>
+                    @if(forgetpasswordForm.get('confirm_new_password').invalid &&
+                    (forgetpasswordForm.get('confirm_new_password').dirty ||
+                    forgetpasswordForm.get('confirm_new_password').touched)){
+                    <div class="errMsg">
+                        @if(forgetpasswordForm.get('confirm_new_password').errors.required){
+                        <ng-container>
+                            Please Enter Password
+                        </ng-container>
+                        }
+                        @if(forgetpasswordForm.get('confirm_new_password').errors.maxlength){
+                        <ng-container>
+                            Maximum 30 Characters Allowed
+                        </ng-container>
+                        }
+                        @if(forgetpasswordForm.get('confirm_new_password').errors.confirmedValidator){
+                        <ng-container>
+                            Passwords did not match
+                        </ng-container>
+                        }
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-4">
+                <button class="button button-default button-full" title="Update Password"
+                    [disabled]="submittedBtnDisabled" (click)="forgotPasswordSubmit()"><span>Update
+                        Password</span></button>
+            </div>
+        </div>
+        <app-component-loader></app-component-loader>
+    </div>
+</form>
+}
+
+<!-- Success Modal -->
+<app-success-modal></app-success-modal>

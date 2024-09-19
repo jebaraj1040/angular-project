@@ -1,0 +1,38 @@
+/* Custom select box */
+
+.type-select {
+    .form-control {
+        background: $white
+            url("#{$asset_cdn_base_path}/assets/images/icons/down-arrow-blue-medium.svg")
+            no-repeat;
+        background-position: calc(100% - 20px) center !important;
+        padding-right: 35px;
+        cursor: pointer;
+    }
+    .select-box {
+        width: 100%;
+        max-height: 180px !important;
+        background: $white;
+        box-shadow: 0 20px 20px rgba(0, 0, 0, 0.15);
+        border-radius: 5px;
+        overflow-y: auto;
+        visibility: hidden;
+        position: absolute;
+        z-index: 9;
+        transform-origin: 0 0 0;
+        transform: scaleY(0);
+        &.show {
+            visibility: visible;
+            transform: scaleY(1);
+            transition: all 0.3s ease;
+        }
+        li {
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            &:hover {
+                background: rgb(0 156 181 / 10%);
+            }
+        }
+    }
+}

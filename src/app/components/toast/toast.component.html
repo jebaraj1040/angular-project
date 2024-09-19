@@ -1,0 +1,5 @@
+@if(showToastMsg){
+<div class="toast" [ngClass]="showToastMsg ? 'show' : '' ">
+    <div class="toast__text text-white editor-content" [innerHTML]="showToastMsg"></div>
+</div>
+}

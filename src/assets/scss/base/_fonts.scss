@@ -1,0 +1,24 @@
+@include font-face(
+    '#{$font-path-light}',
+    '#{$asset_cdn_base_path}/assets/fonts/#{$font-path-light}'
+);
+@include font-face(
+    '#{$font-path-regular}',
+    '#{$asset_cdn_base_path}/assets/fonts/#{$font-path-regular}'
+);
+@include font-face(
+    '#{$font-path-medium}',
+    '#{$asset_cdn_base_path}/assets/fonts/#{$font-path-medium}'
+);
+@include font-face(
+    '#{$font-path-bold}',
+    '#{$asset_cdn_base_path}/assets/fonts/#{$font-path-bold}'
+);
+@include font-face(
+    '#{$font-path-heavy}',
+    '#{$asset_cdn_base_path}/assets/fonts/#{$font-path-heavy}'
+);
+@include font-face(
+    '#{$font-path-outline}',
+    '#{$asset_cdn_base_path}/assets/fonts/#{$font-path-outline}'
+);

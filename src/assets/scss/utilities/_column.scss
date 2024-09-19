@@ -1,0 +1,29 @@
+%grid-column {
+    min-height: 1px;
+    padding-left: calc($grid-gutter-width / 2);
+    padding-right: calc($grid-gutter-width / 2);
+    position: relative;
+}
+
+// base grid;
+@for $i from 1 through $grid-columns {
+    .col-#{$i} {
+        flex: 0 0 auto;
+        width: calc(($i / $grid-columns) * 100%);
+        @extend %grid-column;
+    }
+}
+
+@each $point in map-keys($grid-breakpoints) {
+    @for $i from 1 through $grid-columns {
+        .col-#{$point}-#{$i} {
+            @extend %grid-column;
+        }
+    }
+    $min: map-get($grid-breakpoints, $point);
+    $media: 'screen';
+    @if ($min !=0) {
+        $media: '(min-width:' + $min + ')';
+    }
+    @include _grid-generator($point, $media);
+}

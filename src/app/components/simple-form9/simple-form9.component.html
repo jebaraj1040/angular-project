@@ -1,0 +1,83 @@
+<div class="flex items-center justify-between mb-6">
+    <p class="flex items-center gap-2 text-[16px] md:text-[20px] text-black font-gilmer-medium mb-0">
+        <a class="block md:hidden w-fit" [attr.href]="'/loan-details?loanId=' + LoanNumber" href="#" title="Back">
+            <img src="assets/images/icons/back-arrow.svg" alt="Arrow" width="24" height="24">
+        </a>
+        <span>Income Tax Certificate</span>
+    </p>
+    <div class="hidden md:block">
+        <a [attr.href]="'/loan-details?loanId=' + LoanNumber"
+            class="button button-sm gap-4 !flex !items-center !justify-start" title="Back">
+            <img src="assets/images/icons/arrow.svg" alt="Arrow" width="20" height="20"><span>Back</span>
+        </a>
+    </div>
+</div>
+
+<div class="bg-secondary-2 border border-secondary-3 p-4 md:p-6 rounded-xl mb-4 md:mb-6 relative">
+    <div class="flex flex-wrap items-center w-full justify-between mb-8">
+        <div class="flex items-center xl:w-[48%] gap-3 rounded-lg">
+            <div
+                class="min-w-12 md:min-w-14 max-w-12 md:max-w-14 min-h-12 md:min-h-14 max-h-12 md:max-h-14 flex items-center justify-center border border-solid border-secondary-3 bg-white rounded-full">
+                <img src=" /assets/images/icons/home-loan.svg" alt="Home Loan" width="28" height="28">
+            </div>
+            <div class="block">
+                <p class="text-14 md:text-18 font-gilmer-medium text-secondary-6 mb-0">{{loadName}}</p>
+                <p class="text-14 text-secondary-4 mb-0">{{LoanNumber}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-lg-4">
+            <div class="form-group type-select !mb-6 md:!mb-8">
+                <label for="selectFinancialYear">Select Financial Year</label>
+                <input type="text" class="form-control" id="selectFinancialYear" (click)="handler__selectInput($event)"
+                    readonly autocomplete="off">
+                <div class="select-box" (click)="handler__selectBox($event)">
+                    <ng-scrollbar thumbClass="custom-scrollbars">
+                        <ul>
+                            @for(year of financialYear; track $index){
+                            <li (click)="handler__selectOption($event, year.FinYear)">{{year.FinYear}}
+                            </li>
+                            }
+                        </ul>
+                    </ng-scrollbar>
+                </div>
+                @if(finalYearError == true ){
+                <div class="errMsg">
+                    Please select Financial Year
+                </div>
+                }
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="form-group !mb-6 md:!mb-8 focused">
+                <label for="emailId">Email ID</label>
+                <input type="text" data-type="input" disabled class="form-control" name="emailId" id="emailId"
+                    formControlName="email_id" autocomplete="off" value="{{customerEmail}}">
+                @if(emailError == true ){
+                <div class="errMsg">
+                    Please Enter your email
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row gap-y-6">
+        <div class="col-md-6 col-lg-4">
+            <button class="button button-default !min-w-full" title="Email this PDF" (click)="sendMail()"
+                [disabled]="exportButtonDisabled"><span>Email
+                    this PDF</span> </button>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <button (click)="viewCertificate()" type="button" class="button button-sm !min-w-full"
+                title="View & Download"><span>
+                    @if(downloadCertificateLoader == true) {
+                    Please wait...
+                    } @else {
+                    View & Download
+                    }
+                </span></button>
+        </div>
+    </div>
+</div>
+<app-success-modal [popupMessage]="popupMessage"></app-success-modal>

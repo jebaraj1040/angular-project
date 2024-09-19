@@ -1,0 +1,173 @@
+<div class="relative">
+    <div class="flex items-center justify-between mb-6">
+        <p class="flex items-center gap-2 text-[16px] md:text-[20px] text-black font-gilmer-medium mb-0">
+            <a class="block md:hidden w-fit" [attr.href]="linkChanges" href="#" title="Back">
+                <img src="assets/images/icons/back-arrow.svg" alt="Arrow" width="24" height="24">
+            </a>
+            <span>Change Mailing Address</span>
+        </p>
+        <div class="hidden md:block cursor-pointer" (click)="backButton()">
+            <a [attr.href]="linkChanges" class="button button-sm gap-4 !flex !items-center !justify-start" title="Back">
+                <img src="assets/images/icons/arrow.svg" alt="Arrow" width="20" height="20"><span>Back</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Setp 2 -->
+    @if(addressScreen){
+    <div class="bg-secondary-2 border border-secondary-3 p-4 md:p-6 rounded-xl mb-4 md:mb-6 relative">
+
+        <p class="text-14 md:text-16 font-gilmer-medium text-secondary-6 mb-[2px]">Current Address</p>
+        <p class="text-12 text-secondary-4 mb-4 pb-4 border-b border-secondary-3">We are currently
+            communicating to you with the
+            following address</p>
+        <div class="row gap-y-4">
+            @if(addressData) {
+            @if(addressData?.ErrorMessage == "No Details Found"){
+            <div class="col-md-6">
+                <div class="flex gap-3">
+                    <div>No Address Found</div>
+                </div>
+            </div>
+            }
+            @if(addressData?.ErrorMessage != "No Details Found"){
+            <div class="col-md-6">
+                <div class="flex gap-3">
+                    <div
+                        class="min-w-10 md:min-w-10 max-w-10 md:max-w-10 min-h-10 md:min-h-10 max-h-10 md:max-h-10 flex items-center justify-center bg-white rounded-full">
+                        <img src=" /assets/images/icons/location.svg" alt="Location" width="28" height="28">
+                    </div>
+                    <p class="text-14 font-gilmer-regular text-secondary-6 mb-0">
+                        {{addressData?.Address1}}, {{addressData?.Address2}}, {{addressData?.Area}},
+                        {{addressData?.City}} -
+                        {{addressData?.Pincode}}
+                    </p>
+                </div>
+            </div>
+            }
+            }
+        </div>
+
+    </div>
+    <button class="button button-default" title="Change Address" (click)="changeAddress()"><span>Change
+            Address</span></button>
+    }
+
+    <!-- Setp 2 -->
+    @if(addAddressScreen){
+    <form [formGroup]="addressForm" class="addressForm" autocomplete="off">
+        <div class="bg-secondary-2 border border-secondary-3 p-4 md:p-6 rounded-xl mb-4 md:mb-6 relative">
+            <p class="text-14 md:text-18 font-gilmer-regular text-secondary-6 mb-6">Add New Address</p>
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <label for="address1">Door No*</label>
+                        <input type="text" data-type="input" class="form-control" name="address1" id="address1"
+                            formControlName="address1" autocomplete="off">
+                        @if(addressForm.controls['address1'].invalid &&
+                        (addressForm.controls['address1'].dirty ||
+                        addressForm.controls['address1'].touched)){
+                        <div class="errMsg">
+                            @if(addressForm.controls['address1'].errors?.['required']){ Door No
+                            is required }
+                            @if(addressForm.controls['address1'].errors?.['maxlength']){ Maximum 250 Characters Allowed
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <label for="address2">Street*</label>
+                        <input type="text" data-type="input" class="form-control" name="address2" id="address2"
+                            formControlName="address2" autocomplete="off">
+                        @if(addressForm.controls['address2'].invalid &&
+                        (addressForm.controls['address2'].dirty ||
+                        addressForm.controls['address2'].touched)){
+                        <div class="errMsg">
+                            @if(addressForm.controls['address2'].errors?.['required']){ Street
+                            is required }
+                            @if(addressForm.controls['address2'].errors?.['maxlength']){ Maximum 250 Characters Allowed}
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <label for="area">Area*</label>
+                        <input type="text" data-type="input" class="form-control" name="area" id="area"
+                            formControlName="area" autocomplete="off">
+                        @if(addressForm.controls['area'].invalid &&
+                        (addressForm.controls['area'].dirty ||
+                        addressForm.controls['area'].touched)){
+                        <div class="errMsg">
+                            @if(addressForm.controls['area'].errors?.['required']){ Area
+                            is required }
+                            @if(addressForm.controls['area'].errors?.['maxlength']){ Maximum 250 Characters Allowed }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <label for="pincode">Pincode*</label>
+                        <input type="text" data-type="input" class="form-control" name="pincode" id="pincode"
+                            formControlName="pincode" autocomplete="off" minlength="6" maxlength="6">
+                        @if(addressForm.controls['pincode'].invalid &&
+                        (addressForm.controls['pincode'].dirty ||
+                        addressForm.controls['pincode'].touched)){
+                        <div class="errMsg">
+                            @if(addressForm.controls['pincode'].errors?.['required']){ Pincode
+                            is required }
+                            @if(addressForm.controls['pincode'].errors?.['minlength'] ||
+                            addressForm.controls['pincode'].errors?.['maxlength']){ Please enter valid pincode }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <label for="city">City*</label>
+                        <input type="text" data-type="input" class="form-control" name="city" id="city"
+                            formControlName="city" autocomplete="off">
+                        @if(addressForm.controls['city'].invalid &&
+                        (addressForm.controls['city'].dirty ||
+                        addressForm.controls['city'].touched)){
+                        <div class="errMsg">
+                            @if(addressForm.controls['city'].errors?.['required']){ City
+                            is required }
+                            @if(addressForm.controls['city'].errors?.['maxlength']){ Maximum 250 Characters Allowed }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <label for="state">State*</label>
+                        <input type="text" data-type="input" class="form-control" name="state" id="state"
+                            formControlName="state" autocomplete="off">
+                        @if(addressForm.controls['state'].invalid &&
+                        (addressForm.controls['state'].dirty ||
+                        addressForm.controls['state'].touched)){
+                        <div class="errMsg">
+                            @if(addressForm.controls['state'].errors?.['required']){ State
+                            is required }
+                            @if(addressForm.controls['state'].errors?.['maxlength']){ Maximum 250 Characters Allowed }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <button class="button button-default !min-w-full" title="Update Address"
+                        (click)="addAddressSubmit()"><span>Update
+                            Address</span></button>
+                </div>
+            </div>
+        </div>
+    </form>
+    }
+    <app-success-modal [requestId]="requestId" [popupMessage]="popupMessage"></app-success-modal>
+    <app-component-loader></app-component-loader>
+</div>
+
+<app-toast [showToastMsg]="addressError"></app-toast>

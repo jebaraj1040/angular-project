@@ -1,0 +1,113 @@
+@if(payment_step_1){
+<div class="flex items-center justify-between mb-6">
+    <p class="flex items-center gap-2 text-[16px] md:text-[20px] text-black font-gilmer-medium mb-0">
+        <a class="block md:hidden w-fit" [attr.href]="'/loan-details?loanId=' + LoanNumber" href="#" title="Back">
+            <img src="assets/images/icons/back-arrow.svg" alt="Arrow" width="24" height="24">
+        </a>
+        <span>Make Payment</span>
+    </p>
+    <div class="hidden md:block">
+        <a [attr.href]="'/loan-details?loanId=' + LoanNumber"
+            class="button button-sm gap-4 !flex !items-center !justify-start" title="Back">
+            <img src="assets/images/icons/arrow.svg" alt="Arrow" width="20" height="20"><span>Back</span>
+        </a>
+    </div>
+</div>
+<form [formGroup]="dueAmountForm" class="registerForm" autocomplete="off">
+    <div class="bg-secondary-2 border border-secondary-3 p-4 md:p-6 rounded-xl mb-4 md:mb-6">
+        <div class="flex flex-wrap items-center w-full justify-between pb-4 mb-8 border-b border-b-secondary-3">
+            <div class="flex items-center xl:w-[48%] gap-3 rounded-lg">
+                <div
+                    class="min-w-12 md:min-w-14 max-w-12 md:max-w-14 min-h-12 md:min-h-14 max-h-12 md:max-h-14 flex items-center justify-center border border-solid border-secondary-3 bg-white rounded-full">
+                    <img src=" /assets/images/icons/home-loan.svg" alt="Home Loan" width="28" height="28">
+                </div>
+                <div class="block">
+                    <p class="text-14 md:text-18 font-gilmer-medium text-secondary-6 mb-0">{{loanName}}
+                    </p>
+                    <p class="text-14 text-secondary-4 mb-0">{{LoanNumber}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group focused">
+                    <label for="dueAmount">Due Amount</label>
+                    <input type="text" data-type="input" class="form-control" name="due-amount" id="dueAmount"
+                        formControlName="loanAmount" autocomplete="off" [(ngModel)]="inputAmount">
+                    @if(dueAmountForm.controls['loanAmount'].invalid &&
+                    (dueAmountForm.controls['loanAmount'].dirty ||
+                    dueAmountForm.controls['loanAmount'].touched)){
+                    <div class="errMsg">
+                        @if(dueAmountForm.controls['loanAmount'].errors?.['required']){
+                        Amount is required.}
+                        @if(dueAmountForm.controls['loanAmount'].errors?.['min']){
+                        Enter a valid amount greater than 0.}
+                        @if(dueAmountForm.controls['loanAmount'].errors?.['max']){
+                        Enter a valid amount greater than emi amount.}
+                    </div>
+                    }
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <button class="button button-default flex items-center gap-[14px]" title="Pay Now"
+                    (click)="payRequest()">
+                    <span>Pay Now</span>
+                    <img src="assets/images/icons/white-arrow.svg" alt="Arrow" width="24" height="24">
+                </button>
+            </div>
+        </div>
+
+        <p
+            class="text-12 text-secondary-6 bg-secondary-1 rounded-lg border border-[#A7F3FF] py-3 px-4 w-fit mt-6 md:mt-0 mb-0">
+            <strong>Note:</strong> You can modify the amount you wish to pay and proceed for payment
+        </p>
+    </div>
+</form>
+}
+
+
+@if(payment_step_2){
+<div class="bg-secondary-2 border border-secondary-3 p-4 md:p-6 rounded-xl">
+    <div class="flex items-center justify-center m-auto">
+        <div class="successPopup">
+            <div class="ripple w-[160px] h-[160px] md:w-[192px] md:h-[192px]">
+                <div class="ripple__circle"></div>
+                <div class="ripple__tick">
+                    <svg version="1.1" viewBox="0 0 130.2 130.2">
+                        <polyline fill="none" stroke="#fff" stroke-width="15" stroke-linecap="round"
+                            stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " class="ripple__tick--path">
+                        </polyline>
+                    </svg>
+                </div>
+                <div class="ripple__wave"></div>
+            </div>
+        </div>
+    </div>
+    <p class="text-center font-gilmer-medium text-14 lg:text-18 mb-6 text-secondary-6">Payment successfull
+    </p>
+
+    <ul
+        class="tableList md:max-w-[400px] grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-2 bg-primary-1 py-4 md:py-2 px-4 rounded-lg mb-8 mx-auto ">
+        <li class="relative text-center">
+            <p class="text-12 text-white mb-0">Amount paid</p>
+            <p class="text-14 text-white font-gilmer-medium mb-0">₹&nbsp;{{inputAmount}}</p>
+        </li>
+        <li class="relative text-center">
+            <p class="text-12 text-white mb-0">Balance Tenure</p>
+            <p class="text-14 text-white font-gilmer-medium mb-0">{{balanceTenure}} Months</p>
+        </li>
+        <li class="relative text-center">
+            <p class="text-12 text-white mb-0">Next Installment</p>
+            <p class="text-14 text-white font-gilmer-medium mb-0">{{paymentData.NextEmiDt}}</p>
+        </li>
+    </ul>
+
+    <div class="text-center">
+        <a routerLink="/loan-listing" class="button button-lg" title="Back to Home"><span>Back to
+                Home</span></a>
+    </div>
+</div>
+
+}
+<app-component-loader></app-component-loader>

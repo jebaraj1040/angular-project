@@ -1,0 +1,63 @@
+// Padding & Margin property 
+@for $i from 0 through $spacing-count {
+    .pt-#{$i} {
+        padding-top: calc($i * 10px) !important;
+    }
+    .pr-#{$i} {
+        padding-right: calc($i * 10px) !important;
+    }
+    .pb-#{$i} {
+        padding-bottom: calc($i * 10px) !important;
+    }
+    .pl-#{$i} {
+        padding-left: calc($i * 10px) !important;
+    }
+    .mt-#{$i} {
+        margin-top: calc($i * 10px) !important;
+    }
+    .mr-#{$i} {
+        margin-right: calc($i * 10px) !important;
+    }
+    .mb-#{$i} {
+        margin-bottom: calc($i * 10px) !important;
+    }
+    .ml-#{$i} {
+        margin-left: calc($i * 10px) !important;
+    }
+}
+
+@each $point in map-keys($spacing-breakpoints) {
+    $min: map-get($spacing-breakpoints, $point);
+    $media: "screen";
+    @if ($min !=0) {
+        $media: "(min-width:"+$min+")";
+    }
+    @media #{$media} {
+        @for $i from 0 through $spacing-count {
+            .pt-#{$point}-#{$i} {
+                padding-top: calc($i * 10px) !important;
+            }
+            .pr-#{$point}-#{$i} {
+                padding-right: calc($i * 10px) !important;
+            }
+            .pb-#{$point}-#{$i} {
+                padding-bottom: calc($i * 10px) !important;
+            }
+            .pl-#{$point}-#{$i} {
+                padding-left: calc($i * 10px) !important;
+            }
+            .mt-#{$point}-#{$i} {
+                margin-top: calc($i * 10px) !important;
+            }
+            .mr-#{$point}-#{$i} {
+                margin-right: calc($i * 10px) !important;
+            }
+            .mb-#{$point}-#{$i} {
+                margin-bottom: calc($i * 10px) !important;
+            }
+            .ml-#{$point}-#{$i} {
+                margin-left: calc($i * 10px) !important;
+            }
+        }
+    }
+}

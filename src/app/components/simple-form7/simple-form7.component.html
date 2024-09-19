@@ -1,0 +1,105 @@
+<div class="relative">
+    <div class="flex items-center justify-between mb-6">
+        <p class="flex items-center gap-2 text-[16px] md:text-[20px] text-black font-gilmer-medium mb-0">
+            <a routerLink="/loan-listing" class="block md:hidden w-fit" href="#" title="Back">
+                <img src="assets/images/icons/back-arrow.svg" alt="Arrow" width="24" height="24">
+            </a>
+            <span>Change Email ID</span>
+        </p>
+        <div class="hidden md:block">
+            <a routerLink="/loan-listing" class="button button-sm gap-4 !flex !items-center !justify-start"
+                title="Back">
+                <img src="assets/images/icons/arrow.svg" alt="Arrow" width="20" height="20"><span>Back</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Change Email ID -->
+    @if(emailStep1){
+    <div class="bg-secondary-2 border border-secondary-3 p-4 md:p-6 rounded-xl mb-4 md:mb-6 relative">
+        <p class="text-14 md:text-16 font-gilmer-medium text-secondary-6 mb-[2px]">Current Email Address</p>
+        <p class="text-12 text-secondary-4 mb-6">We are currently communication to you with the following email address
+        </p>
+        <div class="row">
+            @if(currentEmailAddress){
+            <div class="col-md-6 col-lg-4">
+                <div class="form-group focused !mb-0">
+                    <label for="currentEmailAddress">Current Email Address</label>
+                    <input type="text" data-type="input" class="form-control" name="current-email-address"
+                        id="currentEmailAddress" readonly [(ngModel)]="currentEmailAddress" autocomplete="off">
+                </div>
+            </div>
+            }
+            @else {
+
+            <div class="col-md-6 col-lg-4">
+                <div class="form-group !mb-0">
+                    <!-- <label for="currentEmailAddress">Current Email Address</label> -->
+                    <span>Email Not Registered</span>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    <button class="button button-default" title="Change Email Address" (click)=changeEmailAddress()><span>Change Email
+            Address</span></button>
+    }
+
+    <!-- New Email Address -->
+    @if(emailStep2){
+    <div class="bg-secondary-2 border border-secondary-3 p-4 md:p-6 rounded-xl mb-4 md:mb-6 relative">
+        <p class="text-14 md:text-16 font-gilmer-medium text-secondary-6 mb-[2px]">New Email Address</p>
+        <p class="text-12 text-secondary-4 mb-6">Add your new email address</p>
+        <div class="row">
+            <form [formGroup]="updateEmailForm" class="updateEmailForm" autocomplete="off">
+                <div class="col-md-6 col-lg-4">
+                    <div class="form-group !mb-0">
+                        <label for="newEmailAddress">New Email Address*</label>
+                        <input type="text" data-type="input" class="form-control" name="new-email-address"
+                            id="newEmailAddress" formControlName="newEmailAddress" [(ngModel)]="newEmailAddress"
+                            autocomplete="off">
+                        @if(updateEmailForm.controls['newEmailAddress'].invalid &&
+                        (updateEmailForm.controls['newEmailAddress'].dirty ||
+                        updateEmailForm.controls['newEmailAddress'].touched)){
+                        <div class="errMsg">
+                            @if(updateEmailForm.controls['newEmailAddress'].errors?.['required']){ Email
+                            is required }
+                            @if(this.updateEmailForm.controls['newEmailAddress'].errors?.['pattern']){
+                            <div>
+                                Invalid Email Pattern.
+                            </div>
+                            }
+                            @if(this.updateEmailForm.controls['newEmailAddress'].errors?.['maxlength']){
+                            <div>
+                                Maximum 200 Characters Allowed
+                            </div>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    @if(errorMessage&&errorMessage != ""){
+    <div class="errMsg -mt-6 mb-6 ml-8 ">
+        {{ errorMessage }}
+    </div>
+    }
+    <button class="button button-default" title="Update" (click)="updateEmailAddress()"><span>Update</span></button>
+    }
+
+    <!-- OTP Verification -->
+    @if(emailStep3){
+    <div class="bg-secondary-2 border border-secondary-3 p-4 md:p-6 rounded-xl mb-4 md:mb-6 relative">
+        <app-otp-modal2 [mobileNumber]="mobileNumber" [otpType]="otpType" [errorMessage]="errorMessage"
+            (otpEntered)="handleOtpEntered($event)"></app-otp-modal2>
+    </div>
+    }
+
+    <!-- Success Modal -->
+    <app-success-modal [requestId]="requestId"></app-success-modal>
+    <app-component-loader></app-component-loader>
+</div>
+
+<app-toast [showToastMsg]="mailError"></app-toast>

@@ -1,0 +1,140 @@
+<div class="relative">
+    @if(forget_step1){
+    <form [formGroup]="mobileNumberForm" class="mobileNumberForm" autocomplete="off">
+        <h2
+            class="text-18 lg:text-[24px] leading-[24px] lg:leading-[40px] font-gilmer-medium mb-1 text-center text-black">
+            Forgot Password
+        </h2>
+        <p class="text-center text-secondary-4 text-14 lg:text-16 mb-4 lg:mb-8">Enter the mobile number associated with
+            <br />
+            your account
+        </p>
+        <div class="form-group" [ngClass]="mobileNumber ? 'focused' : ''">
+            <label for="mobileNumber">Mobile Number*</label>
+            <input type="text" data-type="input" class="form-control" name="mobile-number" id="mobile"
+                formControlName="mobileNumber" minlength="10" maxlength="10" autocomplete="off"
+                [(ngModel)]="mobileNumber">
+            @if(mobileNumberForm.controls['mobileNumber'].invalid &&
+            (mobileNumberForm.controls['mobileNumber'].dirty ||
+            mobileNumberForm.controls['mobileNumber'].touched)){
+            <div class="errMsg">
+                @if(mobileNumberForm.controls['mobileNumber'].errors?.['required']){
+                Mobile Number is required
+
+                }
+                @if(mobileNumberForm.controls['mobileNumber'].errors?.['pattern']){ Please
+                enter a valid mobile number }
+            </div>
+            }
+            <div class="errMsg">
+                {{ mobileNumberErrMsg }}
+            </div>
+        </div>
+
+        <div class="mb-4 lg:mb-6 text-center">
+            <button class="button button-default" title="Get OTP" (click)="verifyUser()"><span>Get OTP</span></button>
+        </div>
+        <p class="text-12 text-secondary-6 text-center mb-0">Do you already have an account? <a href="/"
+                class="text-12 font-gilmer-medium no-underline" title="Log In">Log In</a></p>
+    </form>
+    }
+
+    @if(forget_step2){
+    <app-otp-modal [mobileNumber]="mobileNumber" [forgetOtpVerifyErrMsg]="forgetOtpVerifyErrMsg"
+        (otpEntered)="handleOtpEntered($event)" (editNumber)="editMobileNumber($event)"
+        [forgetOtpError]="forgetOtpError"></app-otp-modal>
+    }
+
+    @if(forget_step3){
+    <form [formGroup]="forgetpasswordForm" class="forgetpasswordForm" autocomplete="off">
+
+        <h2 class="heading text-18 lg:text-[24px] leading-[24px] lg:leading-[40px] mb-1 text-center text-black">Create
+            New
+            Password</h2>
+        <p class="text-center text-secondary-4 text-14 lg:text-16 mb-4 lg:mb-8">Password should be Greater than eight
+            characters with minimum one special character, one numeric, one lower case and one upper case alphabet.</p>
+
+        <div class="form-group relative">
+            <label for="newPassword">New Password*</label>
+            <input type="{{ showNewPassword ? 'text' : 'password' }}" data-type="input" class="form-control"
+                name="new-password" id="newPassword" formControlName="new_password" autocomplete="off"
+                [(ngModel)]="new_password">
+            <button type="button" class="absolute w-6 h-6 right-3 top-[14px]" (click)="toggleNewPasswordVisibility()">
+                <img *ngIf="!showNewPassword" src="/assets/images/icons/visibility_off.svg" class="m-auto" width="21"
+                    height="22" alt="Hide Password">
+                <img *ngIf="showNewPassword" src="/assets/images/icons/visibility.svg" class="m-auto" width="22"
+                    height="15" alt="Show Password">
+            </button>
+            @if(forgetpasswordForm.get('new_password').invalid &&
+            (forgetpasswordForm.get('new_password').dirty ||
+            forgetpasswordForm.get('new_password').touched)){
+            <div class="errMsg">
+                @if(forgetpasswordForm.get('new_password').errors.required){
+                <ng-container>
+                    Please Enter Password
+                </ng-container>
+                }
+                @if(forgetpasswordForm.get('new_password').errors.pattern){
+                <ng-container>
+                    Please enter valid Password.
+                </ng-container>
+                }
+                @if(forgetpasswordForm.get('new_password').errors.minlength){
+                <ng-container>
+                    Please Enter Minimum 6 Letters
+                </ng-container>
+                }
+                @if(forgetpasswordForm.get('new_password').errors.maxlength){
+                <ng-container>
+                    Maximum 30 Characters Allowed
+                </ng-container>
+                }
+            </div>
+            }
+        </div>
+
+        <div class="form-group relative">
+            <label for="confirmNewPassword">Confirm New Password*</label>
+            <input type="{{ showConfirmNewPassword ? 'text' : 'password' }}" data-type="input" class="form-control"
+                name="confirm-new-password" id="confirmNewPassword" formControlName="confirm_new_password"
+                autocomplete="off" [(ngModel)]="confirm_new_password">
+            <button type="button" class="absolute w-6 h-6 right-3 top-[14px]"
+                (click)="toggleConfirmNewPasswordVisibility()">
+                <img *ngIf="!showConfirmNewPassword" src="/assets/images/icons/visibility_off.svg" class="m-auto"
+                    width="21" height="22" alt="Hide Password">
+                <img *ngIf="showConfirmNewPassword" src="/assets/images/icons/visibility.svg" class="m-auto" width="22"
+                    height="15" alt="Show Password">
+            </button>
+            @if(forgetpasswordForm.get('confirm_new_password').invalid &&
+            (forgetpasswordForm.get('confirm_new_password').dirty ||
+            forgetpasswordForm.get('confirm_new_password').touched)){
+            <div class="errMsg">
+                @if(forgetpasswordForm.get('confirm_new_password').errors.required){
+                <ng-container>
+                    Please Enter Password
+                </ng-container>
+                }
+                @if(forgetpasswordForm.get('confirm_new_password').errors.confirmedValidator){
+                <ng-container>
+                    Passwords did not match
+                </ng-container>
+                }
+            </div>
+            }
+        </div>
+
+
+        <div class="mb-4 lg:mb-6 text-center">
+            <button class="button button-default" title="Submit" [disabled]="submittedBtnDisabled"
+                (click)="forgotPasswordSubmit()"><span>Submit</span></button>
+        </div>
+
+    </form>
+
+    }
+    @if(forget_step4){
+    <app-success-card [message]="message"></app-success-card>
+    }
+    <app-component-loader></app-component-loader>
+</div>
+<app-toast [showToastMsg]="forgetPasswordErrMsg"></app-toast>
